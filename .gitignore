@@ -1,0 +1,13 @@
+# Godot 4 generated files
+.godot/
+
+# Optional C# build/cache files if the project adopts .NET later
+.mono/
+data_*/
+mono_crash.*.json
+
+# Local export output and OS metadata
+builds/
+exports/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,126 @@
+name: Build and Deploy Web
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Deploy the successful Web build to itch.io
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: web-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GODOT_VERSION: "4.7.1"
+  EXPORT_PRESET: Web
+  BUILD_DIR: build/web
+  ARTIFACT_NAME: jumpstart-kingdom-web
+
+jobs:
+  build-web:
+    name: Validate and export Web
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Godot and export templates
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: ${{ env.GODOT_VERSION }}
+          use-dotnet: false
+          include-templates: true
+
+      - name: Verify Godot version
+        run: godot --version
+
+      - name: Import and validate project
+        run: godot --headless --editor --path . --quit
+
+      - name: Run smoke test
+        run: godot --headless --path . --quit-after 180
+
+      - name: Export release build
+        run: |
+          mkdir -p "$BUILD_DIR"
+          godot --headless --path . \
+            --export-release "$EXPORT_PRESET" \
+            "$BUILD_DIR/index.html"
+
+      - name: Verify Web bundle
+        run: |
+          test -f "$BUILD_DIR/index.html"
+          find "$BUILD_DIR" -maxdepth 1 -type f -name '*.wasm' -print -quit | grep -q .
+          find "$BUILD_DIR" -maxdepth 1 -type f -name '*.pck' -print -quit | grep -q .
+
+      - name: Upload Web artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ env.BUILD_DIR }}/
+          if-no-files-found: error
+          retention-days: 14
+
+  deploy-itch:
+    name: Deploy to itch.io
+    needs: build-web
+    runs-on: ubuntu-24.04
+    if: >-
+      startsWith(github.ref, 'refs/tags/v') ||
+      (github.event_name == 'workflow_dispatch' && inputs.deploy)
+    environment: itch-production
+    env:
+      BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+      ITCH_USER: ${{ vars.ITCH_USER }}
+      ITCH_GAME: ${{ vars.ITCH_GAME }}
+      BUILD_VERSION: ${{ github.ref_type == 'tag' && github.ref_name || github.sha }}
+
+    steps:
+      - name: Validate deployment configuration
+        run: |
+          test -n "$BUTLER_API_KEY" || {
+            echo "Missing repository secret: BUTLER_API_KEY" >&2
+            exit 1
+          }
+          test -n "$ITCH_USER" || {
+            echo "Missing repository variable: ITCH_USER" >&2
+            exit 1
+          }
+          test -n "$ITCH_GAME" || {
+            echo "Missing repository variable: ITCH_GAME" >&2
+            exit 1
+          }
+
+      - name: Download Web artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ env.BUILD_DIR }}
+
+      - name: Install Butler
+        run: |
+          curl --fail --silent --show-error --location \
+            https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default \
+            --output "$RUNNER_TEMP/butler.zip"
+          unzip -q "$RUNNER_TEMP/butler.zip" -d "$RUNNER_TEMP/butler"
+          chmod +x "$RUNNER_TEMP/butler/butler"
+          echo "$RUNNER_TEMP/butler" >> "$GITHUB_PATH"
+
+      - name: Push Web build to itch.io
+        run: |
+          butler push "$BUILD_DIR" "$ITCH_USER/$ITCH_GAME:web" \
+            --userversion "$BUILD_VERSION"

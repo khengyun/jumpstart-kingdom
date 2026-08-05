@@ -1,0 +1,30 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Godot: Open Editor",
+			"type": "process",
+			"command": "flatpak",
+			"args": [
+				"run",
+				"org.godotengine.Godot",
+				"--editor",
+				"--path",
+				"${workspaceFolder}"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "Godot: Run Project",
+			"type": "process",
+			"command": "flatpak",
+			"args": [
+				"run",
+				"org.godotengine.Godot",
+				"--path",
+				"${workspaceFolder}"
+			],
+			"problemMatcher": []
+		}
+	]
+}
