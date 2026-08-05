@@ -8,6 +8,7 @@ mono_crash.*.json
 
 # Local export output and OS metadata
 builds/
+build/
 exports/
 .DS_Store
 Thumbs.db
