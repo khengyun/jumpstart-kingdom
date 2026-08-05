@@ -7,12 +7,13 @@ const MOVE_LEFT_ACTION: StringName = &"move_left"
 const MOVE_RIGHT_ACTION: StringName = &"move_right"
 const JUMP_ACTION: StringName = &"jump"
 
-const BODY_COLOR: Color = Color("#35c7b3")
-const BODY_SHADOW_COLOR: Color = Color("#187f83")
-const VISOR_COLOR: Color = Color("#16384f")
-const VISOR_HIGHLIGHT_COLOR: Color = Color("#b9f5ed")
-const ACCENT_COLOR: Color = Color("#ffb84a")
-const OUTLINE_COLOR: Color = Color("#102c3a")
+const IDLE_ANIMATION: StringName = &"idle"
+const RUN_ANIMATION: StringName = &"run"
+const JUMP_ANIMATION: StringName = &"jump"
+const FALL_ANIMATION: StringName = &"fall"
+const DEATH_ANIMATION: StringName = &"death"
+const RUN_ANIMATION_THRESHOLD: float = 10.0
+const FALL_ANIMATION_THRESHOLD: float = 20.0
 
 @export_category("Horizontal Movement")
 @export_range(0.0, 1000.0, 1.0) var max_speed: float = 220.0
@@ -35,6 +36,8 @@ const OUTLINE_COLOR: Color = Color("#102c3a")
 @export var spawn_position: Vector2 = Vector2.ZERO
 @export var death_y: float = 2000.0
 
+@onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 var _coyote_timer: float = 0.0
 var _jump_buffer_timer: float = 0.0
 var _facing_direction: float = 1.0
@@ -44,7 +47,7 @@ var _is_dead: bool = false
 func _ready() -> void:
 	if initialize_spawn_from_scene:
 		spawn_position = global_position
-	queue_redraw()
+	_sprite.play(IDLE_ANIMATION)
 
 
 func _physics_process(delta: float) -> void:
@@ -58,6 +61,7 @@ func _physics_process(delta: float) -> void:
 	_apply_variable_jump_cut()
 
 	move_and_slide()
+	_update_animation()
 
 	if global_position.y >= death_y:
 		die()
@@ -87,7 +91,6 @@ func _apply_horizontal_movement(delta: float) -> void:
 		var next_facing_direction: float = signf(input_axis)
 		if not is_equal_approx(next_facing_direction, _facing_direction):
 			_facing_direction = next_facing_direction
-			queue_redraw()
 
 	velocity.x = move_toward(velocity.x, target_speed, acceleration * delta)
 
@@ -131,8 +134,8 @@ func die() -> void:
 
 	_is_dead = true
 	velocity = Vector2.ZERO
+	_play_animation(DEATH_ANIMATION, true)
 	set_physics_process(false)
-	queue_redraw()
 	died.emit()
 
 
@@ -144,7 +147,8 @@ func respawn() -> void:
 	_jump_buffer_timer = 0.0
 	_is_dead = false
 	set_physics_process(true)
-	queue_redraw()
+	_sprite.flip_h = _facing_direction < 0.0
+	_play_animation(IDLE_ANIMATION, true)
 
 
 func set_spawn_position(new_spawn_position: Vector2) -> void:
@@ -155,35 +159,26 @@ func is_dead() -> bool:
 	return _is_dead
 
 
-func _draw() -> void:
-	var facing: float = _facing_direction
+func freeze_for_finish() -> void:
+	velocity = Vector2.ZERO
+	set_physics_process(false)
+	_play_animation(IDLE_ANIMATION, true)
 
-	# Backpack, scarf, and feet are drawn first so the body overlaps them.
-	draw_rect(Rect2(-facing * 10.0 - 4.0, -5.0, 7.0, 14.0), BODY_SHADOW_COLOR)
-	draw_colored_polygon(
-		PackedVector2Array([
-			Vector2(-facing * 8.0, -2.0),
-			Vector2(-facing * 18.0, 1.0),
-			Vector2(-facing * 9.0, 5.0),
-		]),
-		ACCENT_COLOR
-	)
-	draw_rect(Rect2(-9.0, 9.0, 7.0, 6.0), BODY_SHADOW_COLOR)
-	draw_rect(Rect2(2.0, 9.0, 7.0, 6.0), BODY_SHADOW_COLOR)
 
-	# Rounded teal explorer body with a directional glass visor.
-	draw_circle(Vector2(0.0, -4.0), 11.0, OUTLINE_COLOR)
-	draw_rect(Rect2(-11.0, -4.0, 22.0, 13.0), OUTLINE_COLOR)
-	draw_circle(Vector2(0.0, -4.0), 9.5, BODY_COLOR)
-	draw_rect(Rect2(-9.5, -4.0, 19.0, 12.0), BODY_COLOR)
-	draw_circle(Vector2(facing * 2.5, -6.0), 6.0, VISOR_COLOR)
-	draw_circle(Vector2(facing * 4.0, -8.0), 1.7, VISOR_HIGHLIGHT_COLOR)
+func _update_animation() -> void:
+	_sprite.flip_h = _facing_direction < 0.0
 
-	# Antenna and chest badge keep the placeholder readable at small sizes.
-	draw_line(Vector2(0.0, -14.0), Vector2(facing * 3.0, -19.0), OUTLINE_COLOR, 2.0)
-	draw_circle(Vector2(facing * 3.0, -20.0), 2.5, ACCENT_COLOR)
-	draw_circle(Vector2(facing * 4.0, 4.0), 2.0, ACCENT_COLOR)
+	if not is_on_floor():
+		var airborne_animation: StringName = (
+			JUMP_ANIMATION if velocity.y < FALL_ANIMATION_THRESHOLD else FALL_ANIMATION
+		)
+		_play_animation(airborne_animation)
+	elif absf(velocity.x) >= RUN_ANIMATION_THRESHOLD:
+		_play_animation(RUN_ANIMATION)
+	else:
+		_play_animation(IDLE_ANIMATION)
 
-	if _is_dead:
-		draw_line(Vector2(-4.0, -9.0), Vector2(4.0, -3.0), ACCENT_COLOR, 2.0)
-		draw_line(Vector2(4.0, -9.0), Vector2(-4.0, -3.0), ACCENT_COLOR, 2.0)
+
+func _play_animation(animation_name: StringName, restart: bool = false) -> void:
+	if restart or _sprite.animation != animation_name:
+		_sprite.play(animation_name)

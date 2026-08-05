@@ -335,8 +335,7 @@ func _on_goal_reached() -> void:
 	_score += 1000
 	_update_hud()
 	if is_instance_valid(_player):
-		_player.velocity = Vector2.ZERO
-		_player.set_physics_process(false)
+		_player.call("freeze_for_finish")
 	_finish_panel.visible = true
 	_help_label.text = "Press R to play again"
 
