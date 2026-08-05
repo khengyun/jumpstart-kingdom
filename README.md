@@ -1,76 +1,129 @@
-# Jumpstart Kingdom
+<p align="center">
+  <img src="marketing/itch/jumpstart-kingdom-banner.png" alt="Jumpstart Kingdom banner" width="960">
+</p>
 
-Jumpstart Kingdom is a 2D platformer built and tested with Godot 4.7.x. The project uses a 960×540 design resolution, `canvas_items` stretch mode, and the GL Compatibility renderer for broad hardware support.
+<h1 align="center">Jumpstart Kingdom</h1>
+
+<p align="center">
+  A cheerful browser platformer about quick jumps, golden collectibles, and tiny purple troublemakers.
+</p>
+
+<p align="center">
+  <a href="https://khengyun.itch.io/jumpstart-kingdom"><strong>Play in your browser</strong></a>
+  ·
+  <a href="https://khengyun.itch.io/">More games by Ken</a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/khengyun/jumpstart-kingdom/actions/workflows/godot-export.yml">
+    <img src="https://github.com/khengyun/jumpstart-kingdom/actions/workflows/godot-export.yml/badge.svg?branch=main" alt="Build and Deploy Web status">
+  </a>
+</p>
+
+## About
+
+Jumpstart Kingdom is a compact 2D platformer built with Godot 4.7. Run across grassy platforms, collect golden pickups, avoid spikes, stomp patrol enemies, activate the checkpoint, and reach the goal.
+
+The game is designed at 960×540, uses the GL Compatibility renderer, and can be played directly in a modern desktop browser.
+
+## Features
+
+- Responsive movement with separate ground and air acceleration.
+- Coyote time, jump buffering, and variable-height jumping.
+- Collectibles, scoring, hazards, pits, and player respawning.
+- Stompable patrol enemies and a mid-level checkpoint.
+- Pause, restart, death counter, and level-complete flow.
+- Original runtime visuals drawn directly with GDScript.
+- Automated Web builds and itch.io deployment through GitHub Actions.
 
 ## Controls
 
-| Action | Key |
+| Action | Keyboard |
 | --- | --- |
 | Move left | `A` or `←` |
 | Move right | `D` or `→` |
 | Jump | `Space`, `W`, or `↑` |
-| Respawn | `R` |
-| Pause/resume | `Esc` |
+| Respawn / restart | `R` |
+| Pause / resume | `Esc` |
 
-## Current Features
+## Run Locally
 
-The starter includes a playable vertical slice rendered entirely with code:
+### Requirements
 
-- responsive acceleration and deceleration, coyote time, jump buffering, and variable jump height;
-- a complete level with platforms, pits, spikes, a checkpoint, and a finish gate;
-- collectible crystals, stompable patrol enemies, scoring, and respawning;
-- a HUD, pause state, and level restart flow;
-- no Nintendo assets or names.
+- Godot 4.7.x. The CI build currently uses Godot 4.7.1.
+- Git, if you want to clone the repository.
+
+Clone and open the project:
+
+```bash
+git clone https://github.com/khengyun/jumpstart-kingdom.git
+cd jumpstart-kingdom
+godot --editor --path .
+```
+
+Press `F5` in the editor, or launch the game directly:
+
+```bash
+godot --path .
+```
+
+For a Flatpak installation of Godot:
+
+```bash
+flatpak run --filesystem="$PWD" org.godotengine.Godot --editor --path .
+flatpak run --filesystem="$PWD" org.godotengine.Godot --path .
+```
+
+Run the same headless checks used during development:
+
+```bash
+godot --headless --editor --path . --quit
+godot --headless --path . --quit-after 180
+```
 
 ## Project Structure
 
 ```text
 .
-├── project.godot          # Project settings and Input Map
-├── scenes/
-│   ├── main.tscn          # Entry scene and gameplay containers
-│   ├── player.tscn        # Player character and camera
-│   ├── coin.tscn          # Collectible crystal
-│   ├── patrol_enemy.tscn  # Patrol enemy
-│   └── goal.tscn          # Level finish gate
-├── scripts/               # GDScript files used by the scenes
-└── .vscode/               # Optional Godot Tools tasks and debug settings
+├── assets/branding/      # Project icon used by exported builds
+├── marketing/itch/       # Storefront artwork; excluded from game exports
+├── scenes/               # Main, player, collectible, enemy, and goal scenes
+├── scripts/              # Gameplay, movement, UI, and procedural drawing
+├── .github/workflows/    # Web build and itch.io deployment pipeline
+├── .vscode/              # Optional Flatpak tasks and Godot debug settings
+├── export_presets.cfg    # Godot Web export preset
+└── project.godot         # Project settings, input map, and entry scene
 ```
 
-The 2D collision layers are named `World`, `Player`, `Enemy`, and `Pickup`.
+The collision layers are named `World`, `Player`, `Enemy`, and `Pickup`. Storefront artwork lives under `marketing/` and is kept out of Godot imports and release bundles by `marketing/.gdignore`.
 
-## Running the Game
+The included VS Code tasks open or run the project through Flatpak. Debug launch configurations use the recommended `geequlim.godot-tools` extension.
 
-1. Install a stable Godot 4.7.x release. The project is currently saved with the `4.7` feature flag.
-2. Open Godot Project Manager, select **Import**, and choose `project.godot` from this directory.
-3. Press `F6` to run the current scene or `F5` to run the main scene.
+## Web Export
 
-On a Flatpak-based installation, run the project directly with:
+Install the matching Godot export templates, then run:
 
 ```bash
-flatpak run org.godotengine.Godot --path .
+mkdir -p build/web
+godot --headless --path . --export-release Web build/web/index.html
 ```
 
-Headless smoke test:
-
-```bash
-flatpak run org.godotengine.Godot --headless --path . --quit-after 180
-```
-
-The **Godot: Open Editor** and **Godot: Run Project** VS Code tasks also use the Flatpak installation. The debug launch configurations require the recommended `geequlim.godot-tools` extension.
+The exported directory must keep `index.html`, the `.wasm` file, the `.pck` file, and the remaining generated files together.
 
 ## Continuous Delivery
 
-The GitHub Actions workflow in `.github/workflows/godot-export.yml` validates the project, runs a headless smoke test, exports the Web build, and stores it as a workflow artifact on every push or pull request.
+The [`Build and Deploy Web`](.github/workflows/godot-export.yml) workflow runs for pushes to `main`, `v*` tag pushes, pull requests targeting `main`, and manual dispatches. It:
 
-Publishing to itch.io is enabled for version tags such as `v1.0.0`, or by manually running the workflow with the **deploy** input enabled. The repository must define:
+1. imports and validates the Godot project;
+2. runs a headless smoke test;
+3. exports and verifies the Web bundle;
+4. stores the bundle as a GitHub Actions artifact for 14 days;
+5. deploys the bundle to the itch.io `web` channel for `v*` tags or a manual run with **deploy** enabled.
 
-- an Actions secret named `BUTLER_API_KEY`;
-- an Actions variable named `ITCH_GAME` containing the itch.io project slug;
-- an existing itch.io HTML game page matching those values.
+Production deployment requires the repository secret `BUTLER_API_KEY`, the repository variable `ITCH_GAME`, and an existing itch.io HTML project matching that slug. The workflow validates the target page before uploading with Butler. After the first upload, mark the `web` upload as **HTML5 / Playable in browser** in the itch.io editor.
 
-The deployment job uses the protected `itch-production` GitHub environment, resolves the itch.io username from the API key without exposing the key, verifies that the configured game page exists, and uploads the directory containing `index.html` to the `web` Butler channel.
+## Credits
 
-After the first Butler upload, open the game's itch.io edit page once, keep the project kind set to **HTML**, and mark the `web` upload as **HTML5 / Playable in browser**. Later workflow runs update that channel automatically.
+Created by [Ken](https://khengyun.itch.io/) with [Godot Engine](https://godotengine.org/). Gameplay code and runtime artwork are original to this project.
 
-All future artwork, audio, characters, and names should be original or used under an appropriate license.
+This independent project is not affiliated with Nintendo and contains no Nintendo characters, names, or assets.
