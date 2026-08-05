@@ -1,11 +1,10 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://bks1icnunyfvv"]
 
-[ext_resource type="Script" path="res://scripts/settings_panel.gd" id="1_script"]
-[ext_resource type="Theme" path="res://assets/ui/menu_theme.tres" id="2_theme"]
+[ext_resource type="Script" uid="uid://dt8nej7i5fac8" path="res://scripts/settings_panel.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://dbfcxctuhgjqm" path="res://assets/ui/menu_theme.tres" id="2_theme"]
 
-[node name="SettingsPanel" type="Control"]
+[node name="SettingsPanel" type="Control" unique_id=314409347]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,7 +14,7 @@ grow_vertical = 2
 theme = ExtResource("2_theme")
 script = ExtResource("1_script")
 
-[node name="Dimmer" type="ColorRect" parent="."]
+[node name="Dimmer" type="ColorRect" parent="." unique_id=84995635]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.01, 0.035, 0.06, 0.82)
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." unique_id=691364186]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -38,61 +37,59 @@ offset_bottom = 190.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBox" type="VBoxContainer" parent="Panel"]
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=923717087]
 layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="KickerRow" type="HBoxContainer" parent="Panel/VBox"]
+[node name="KickerRow" type="HBoxContainer" parent="Panel/VBox" unique_id=1865216377]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Accent" type="ColorRect" parent="Panel/VBox/KickerRow"]
+[node name="Accent" type="ColorRect" parent="Panel/VBox/KickerRow" unique_id=190901832]
 custom_minimum_size = Vector2(5, 22)
 layout_mode = 2
 mouse_filter = 2
 color = Color(0.96, 0.37, 0.09, 1)
 
-[node name="Kicker" type="Label" parent="Panel/VBox/KickerRow"]
+[node name="Kicker" type="Label" parent="Panel/VBox/KickerRow" unique_id=85912357]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.38, 0.82, 0.98, 1)
 theme_override_font_sizes/font_size = 14
 text = "AUDIO"
 vertical_alignment = 1
 
-[node name="Title" type="Label" parent="Panel/VBox"]
+[node name="Title" type="Label" parent="Panel/VBox" unique_id=1835061878]
 layout_mode = 2
 theme_override_font_sizes/font_size = 31
 text = "Settings"
 
-[node name="Description" type="Label" parent="Panel/VBox"]
+[node name="Description" type="Label" parent="Panel/VBox" unique_id=605286164]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.59, 0.74, 0.81, 1)
 theme_override_font_sizes/font_size = 15
 text = "Changes are saved automatically on this device."
 
-[node name="DividerTop" type="HSeparator" parent="Panel/VBox"]
+[node name="DividerTop" type="HSeparator" parent="Panel/VBox" unique_id=601328241]
 layout_mode = 2
 
-[node name="VolumeRow" type="HBoxContainer" parent="Panel/VBox"]
+[node name="VolumeRow" type="HBoxContainer" parent="Panel/VBox" unique_id=282140403]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="VolumeLabel" type="Label" parent="Panel/VBox/VolumeRow"]
+[node name="VolumeLabel" type="Label" parent="Panel/VBox/VolumeRow" unique_id=1581833816]
 custom_minimum_size = Vector2(148, 0)
 layout_mode = 2
 text = "Master volume"
 vertical_alignment = 1
 
-[node name="VolumeSlider" type="HSlider" parent="Panel/VBox/VolumeRow"]
+[node name="VolumeSlider" type="HSlider" parent="Panel/VBox/VolumeRow" unique_id=1594544400]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 100.0
-step = 1.0
 value = 80.0
 
-[node name="VolumeValue" type="Label" parent="Panel/VBox/VolumeRow"]
+[node name="VolumeValue" type="Label" parent="Panel/VBox/VolumeRow" unique_id=1761566025]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(58, 0)
 layout_mode = 2
@@ -100,18 +97,18 @@ text = "80%"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="MuteCheck" type="CheckButton" parent="Panel/VBox"]
+[node name="MuteCheck" type="CheckButton" parent="Panel/VBox" unique_id=255469724]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 text = "Mute all sound"
 
-[node name="Spacer" type="Control" parent="Panel/VBox"]
+[node name="Spacer" type="Control" parent="Panel/VBox" unique_id=598215537]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="BackButton" type="Button" parent="Panel/VBox"]
+[node name="BackButton" type="Button" parent="Panel/VBox" unique_id=1672110439]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2

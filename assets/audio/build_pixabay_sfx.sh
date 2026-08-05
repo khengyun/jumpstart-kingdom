@@ -58,6 +58,10 @@ download \
 	"swing_whoosh.mp3" \
 	"https://cdn.pixabay.com/download/audio/2022/04/29/audio_f28098ce3c.mp3?filename=swing-whoosh-110410.mp3" \
 	"acac9d9e5137fdb038f39aef89650b437a30a6b38c833859115c0677692c77dd"
+download \
+	"game_over_31.mp3" \
+	"https://cdn.pixabay.com/download/audio/2023/12/04/audio_b62aad1ff9.mp3?filename=tuomas_data-game-over-31-179699.mp3" \
+	"01ab4b2678b8c7f3c07ceb57056021925844bb216bf7d90b0d4f65682dbe8164"
 
 mkdir -p "$output_dir"
 
@@ -114,6 +118,11 @@ ffmpeg "${ffmpeg_common[@]}" -i "$work_dir/item_pickup.mp3" -i "$work_dir/toy_bu
 	-filter_complex "[0:a]atrim=start=0.055:end=0.43,asetpts=PTS-STARTPTS,aresample=44100,highpass=f=430,asplit=4[n1][n2][n3][n4];[n1]rubberband=pitch=1.00,volume=0.38[c1];[n2]rubberband=pitch=1.26,volume=0.42,adelay=180:all=1[c2];[n3]rubberband=pitch=1.50,volume=0.46,adelay=360:all=1[c3];[n4]rubberband=pitch=2.00,volume=0.55,adelay=620:all=1[c4];[1:a]atrim=start=0:end=0.25,asetpts=PTS-STARTPTS,aresample=44100,rubberband=pitch=0.82,lowpass=f=5200,volume=0.28,adelay=850:all=1[final];[c1][c2][c3][c4][final]amix=inputs=5:duration=longest:normalize=0,afade=t=out:st=1.12:d=0.22,apad=whole_dur=1.42,atrim=duration=1.42,alimiter=limit=0.90:level=false:latency=true[out]" \
 	-map "[out]" "${wav_common[@]}" "$output_dir/level_complete.wav"
 
+# User-selected loss cue: remove the long silent tail and level it for the menu.
+ffmpeg "${ffmpeg_common[@]}" -i "$work_dir/game_over_31.mp3" \
+	-af "atrim=start=0.025:end=1.12,asetpts=PTS-STARTPTS,aresample=44100,highpass=f=80,lowpass=f=14000,volume=0.65,afade=t=in:st=0:d=0.004,afade=t=out:st=1.01:d=0.08,apad=whole_dur=1.10,atrim=duration=1.10,alimiter=limit=0.84:level=false:latency=true" \
+	"${wav_common[@]}" "$output_dir/game_over.wav"
+
 # Interface family: one source, transformed into four short but related cues.
 ffmpeg "${ffmpeg_common[@]}" -i "$work_dir/toy_button.mp3" \
 	-af "atrim=start=0:end=0.18,asetpts=PTS-STARTPTS,aresample=44100,highpass=f=380,rubberband=pitch=1.00,volume=0.35,afade=t=out:st=0.11:d=0.05,apad=whole_dur=0.18,atrim=duration=0.18,alimiter=limit=0.78:level=false:latency=true" \
@@ -131,4 +140,4 @@ ffmpeg "${ffmpeg_common[@]}" -i "$work_dir/toy_button.mp3" \
 	-af "atrim=start=0:end=0.25,asetpts=PTS-STARTPTS,aresample=44100,areverse,rubberband=pitch=0.78,lowpass=f=5200,volume=0.30,afade=t=out:st=0.21:d=0.07,apad=whole_dur=0.32,atrim=duration=0.32,alimiter=limit=0.76:level=false:latency=true" \
 	"${wav_common[@]}" "$output_dir/ui_back.wav"
 
-printf 'Built 15 Pixabay-derived sound effects in %s\n' "$output_dir"
+printf 'Built 16 Pixabay-derived sound effects in %s\n' "$output_dir"

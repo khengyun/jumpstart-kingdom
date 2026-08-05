@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
 [ext_resource type="Texture2D" path="res://assets/environment/kingdom-background.png" id="2_background"]
@@ -8,12 +8,12 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/game_menu.tscn" id="6_game_menu"]
 [ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="7_settings"]
 [ext_resource type="PackedScene" path="res://scenes/ui/about_panel.tscn" id="8_about"]
-[ext_resource type="PackedScene" path="res://scenes/levels/level_01.tscn" id="9_level_01"]
+[ext_resource type="PackedScene" path="res://scenes/ui/level_transition.tscn" id="9_transition"]
+[ext_resource type="PackedScene" path="res://scenes/ui/level_select_panel.tscn" id="10_level_select"]
 
 [node name="Main" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_main")
-levels = Array[PackedScene]([ExtResource("9_level_01")])
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -10
@@ -39,8 +39,12 @@ layer = 10
 
 [node name="StartMenu" parent="UI" instance=ExtResource("5_start")]
 
+[node name="LevelSelectPanel" parent="UI" instance=ExtResource("10_level_select")]
+
 [node name="GameMenu" parent="UI" instance=ExtResource("6_game_menu")]
 
 [node name="SettingsPanel" parent="UI" instance=ExtResource("7_settings")]
 
 [node name="AboutPanel" parent="UI" instance=ExtResource("8_about")]
+
+[node name="LevelTransition" parent="UI" instance=ExtResource("9_transition")]

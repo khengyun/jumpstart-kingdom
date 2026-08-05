@@ -1,24 +1,24 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene format=3 uid="uid://clsabgasykxwi"]
 
-[ext_resource type="Script" path="res://scripts/level.gd" id="1_level"]
+[ext_resource type="Script" uid="uid://sb3mhtqqq6ab" path="res://scripts/level.gd" id="1_level"]
 [ext_resource type="PackedScene" path="res://scenes/components/platform_block.tscn" id="2_platform"]
 [ext_resource type="PackedScene" path="res://scenes/components/spike_strip.tscn" id="3_spikes"]
 [ext_resource type="PackedScene" path="res://scenes/components/kill_zone.tscn" id="4_kill_zone"]
-[ext_resource type="PackedScene" path="res://scenes/coin.tscn" id="5_coin"]
+[ext_resource type="PackedScene" uid="uid://djobtf37uqmnp" path="res://scenes/coin.tscn" id="5_coin"]
 [ext_resource type="PackedScene" path="res://scenes/patrol_enemy.tscn" id="6_enemy"]
 [ext_resource type="PackedScene" path="res://scenes/components/checkpoint.tscn" id="7_checkpoint"]
 [ext_resource type="PackedScene" path="res://scenes/goal.tscn" id="8_goal"]
-[ext_resource type="Texture2D" path="res://assets/environment/kingdom-background.png" id="9_background"]
+[ext_resource type="Texture2D" uid="uid://c67dxp5hc2nti" path="res://assets/environment/kingdom-background.png" id="9_background"]
 
-[node name="Level01" type="Node2D"]
+[node name="Level01" type="Node2D" unique_id=1240520953]
 script = ExtResource("1_level")
 level_title = "Green Circuit"
 level_bounds = Rect2(0, 0, 3400, 540)
 background_texture = ExtResource("9_background")
 
-[node name="EditorGuides" type="Node2D" parent="."]
+[node name="EditorGuides" type="Node2D" parent="." unique_id=849985644]
 
-[node name="LevelBounds" type="ReferenceRect" parent="EditorGuides"]
+[node name="LevelBounds" type="ReferenceRect" parent="EditorGuides" unique_id=29472458]
 offset_right = 3400.0
 offset_bottom = 540.0
 mouse_filter = 2
@@ -26,219 +26,219 @@ border_color = Color(0.2, 0.85, 1, 0.85)
 border_width = 2.0
 editor_only = true
 
-[node name="Terrain" type="Node2D" parent="."]
+[node name="Terrain" type="Node2D" parent="." unique_id=1410646757]
 z_index = 1
 
-[node name="Ground01" parent="Terrain" instance=ExtResource("2_platform")]
-offset_right = 900.0
+[node name="Ground01" parent="Terrain" unique_id=97572055 instance=ExtResource("2_platform")]
 offset_top = 460.0
+offset_right = 900.0
 offset_bottom = 540.0
 
-[node name="Ground02" parent="Terrain" instance=ExtResource("2_platform")]
+[node name="Ground02" parent="Terrain" unique_id=1182968195 instance=ExtResource("2_platform")]
 offset_left = 1050.0
 offset_top = 460.0
 offset_right = 1700.0
 offset_bottom = 540.0
 
-[node name="Ground03" parent="Terrain" instance=ExtResource("2_platform")]
+[node name="Ground03" parent="Terrain" unique_id=160982776 instance=ExtResource("2_platform")]
 offset_left = 1850.0
 offset_top = 460.0
 offset_right = 2550.0
 offset_bottom = 540.0
 
-[node name="Ground04" parent="Terrain" instance=ExtResource("2_platform")]
+[node name="Ground04" parent="Terrain" unique_id=1937185057 instance=ExtResource("2_platform")]
 offset_left = 2700.0
 offset_top = 460.0
 offset_right = 3400.0
 offset_bottom = 540.0
 
-[node name="Ledge01" parent="Terrain" instance=ExtResource("2_platform")]
+[node name="Ledge01" parent="Terrain" unique_id=1690813559 instance=ExtResource("2_platform")]
 offset_left = 505.0
 offset_top = 368.0
 offset_right = 675.0
 offset_bottom = 396.0
 
-[node name="Ledge02" parent="Terrain" instance=ExtResource("2_platform")]
+[node name="Ledge02" parent="Terrain" unique_id=1474870753 instance=ExtResource("2_platform")]
 offset_left = 755.0
 offset_top = 293.0
 offset_right = 885.0
 offset_bottom = 319.0
 
-[node name="Ledge03" parent="Terrain" instance=ExtResource("2_platform")]
+[node name="Ledge03" parent="Terrain" unique_id=1142679315 instance=ExtResource("2_platform")]
 offset_left = 1075.0
 offset_top = 378.0
 offset_right = 1225.0
 offset_bottom = 406.0
 
-[node name="Ledge04" parent="Terrain" instance=ExtResource("2_platform")]
+[node name="Ledge04" parent="Terrain" unique_id=593103102 instance=ExtResource("2_platform")]
 offset_left = 1365.0
 offset_top = 304.0
 offset_right = 1535.0
 offset_bottom = 332.0
 
-[node name="Ledge05" parent="Terrain" instance=ExtResource("2_platform")]
-offset_left = 1615.0
-offset_top = 231.0
-offset_right = 1745.0
-offset_bottom = 257.0
+[node name="Ledge05" parent="Terrain" unique_id=193132244 instance=ExtResource("2_platform")]
+offset_left = 1541.0
+offset_top = 198.0
+offset_right = 1671.0
+offset_bottom = 224.0
 
-[node name="Ledge06" parent="Terrain" instance=ExtResource("2_platform")]
+[node name="Ledge06" parent="Terrain" unique_id=376110443 instance=ExtResource("2_platform")]
 offset_left = 1980.0
 offset_top = 366.0
 offset_right = 2160.0
 offset_bottom = 394.0
 
-[node name="Ledge07" parent="Terrain" instance=ExtResource("2_platform")]
+[node name="Ledge07" parent="Terrain" unique_id=2142624362 instance=ExtResource("2_platform")]
 offset_left = 2245.0
 offset_top = 290.0
 offset_right = 2395.0
 offset_bottom = 318.0
 
-[node name="Ledge08" parent="Terrain" instance=ExtResource("2_platform")]
+[node name="Ledge08" parent="Terrain" unique_id=1937675752 instance=ExtResource("2_platform")]
 offset_left = 2460.0
 offset_top = 219.0
 offset_right = 2580.0
 offset_bottom = 245.0
 
-[node name="Ledge09" parent="Terrain" instance=ExtResource("2_platform")]
+[node name="Ledge09" parent="Terrain" unique_id=941081941 instance=ExtResource("2_platform")]
 offset_left = 2735.0
 offset_top = 368.0
 offset_right = 2885.0
 offset_bottom = 396.0
 
-[node name="Ledge10" parent="Terrain" instance=ExtResource("2_platform")]
+[node name="Ledge10" parent="Terrain" unique_id=1232395143 instance=ExtResource("2_platform")]
 offset_left = 2960.0
 offset_top = 292.0
 offset_right = 3140.0
 offset_bottom = 320.0
 
-[node name="LeftWall" parent="Terrain" instance=ExtResource("2_platform")]
+[node name="LeftWall" parent="Terrain" unique_id=209658932 instance=ExtResource("2_platform")]
 offset_left = -60.0
 offset_top = -100.0
 offset_right = 0.0
 offset_bottom = 600.0
 grass_top = false
 
-[node name="Pickups" type="Node2D" parent="."]
+[node name="Pickups" type="Node2D" parent="." unique_id=2068682449]
 z_index = 4
 
-[node name="Coin01" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin01" parent="Pickups" unique_id=746595979 instance=ExtResource("5_coin")]
 position = Vector2(420, 405)
 
-[node name="Coin02" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin02" parent="Pickups" unique_id=2125696642 instance=ExtResource("5_coin")]
 position = Vector2(555, 335)
 
-[node name="Coin03" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin03" parent="Pickups" unique_id=2073910075 instance=ExtResource("5_coin")]
 position = Vector2(625, 335)
 
-[node name="Coin04" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin04" parent="Pickups" unique_id=422289117 instance=ExtResource("5_coin")]
 position = Vector2(820, 255)
 
-[node name="Coin05" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin05" parent="Pickups" unique_id=1086264131 instance=ExtResource("5_coin")]
 position = Vector2(1090, 345)
 
-[node name="Coin06" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin06" parent="Pickups" unique_id=2011826172 instance=ExtResource("5_coin")]
 position = Vector2(1210, 345)
 
-[node name="Coin07" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin07" parent="Pickups" unique_id=1446550140 instance=ExtResource("5_coin")]
 position = Vector2(1395, 270)
 
-[node name="Coin08" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin08" parent="Pickups" unique_id=1805374161 instance=ExtResource("5_coin")]
 position = Vector2(1460, 270)
 
-[node name="Coin09" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin09" parent="Pickups" unique_id=751029388 instance=ExtResource("5_coin")]
 position = Vector2(1525, 270)
 
-[node name="Coin10" parent="Pickups" instance=ExtResource("5_coin")]
-position = Vector2(1680, 198)
+[node name="Coin10" parent="Pickups" unique_id=73964118 instance=ExtResource("5_coin")]
+position = Vector2(1619, 145)
 
-[node name="Coin11" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin11" parent="Pickups" unique_id=324895537 instance=ExtResource("5_coin")]
 position = Vector2(2030, 332)
 
-[node name="Coin12" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin12" parent="Pickups" unique_id=577282184 instance=ExtResource("5_coin")]
 position = Vector2(2110, 332)
 
-[node name="Coin13" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin13" parent="Pickups" unique_id=1725231735 instance=ExtResource("5_coin")]
 position = Vector2(2320, 256)
 
-[node name="Coin14" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin14" parent="Pickups" unique_id=1229677121 instance=ExtResource("5_coin")]
 position = Vector2(2520, 184)
 
-[node name="Coin15" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin15" parent="Pickups" unique_id=856086417 instance=ExtResource("5_coin")]
 position = Vector2(2780, 334)
 
-[node name="Coin16" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin16" parent="Pickups" unique_id=982046311 instance=ExtResource("5_coin")]
 position = Vector2(2840, 334)
 
-[node name="Coin17" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin17" parent="Pickups" unique_id=1794829740 instance=ExtResource("5_coin")]
 position = Vector2(2990, 258)
 
-[node name="Coin18" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin18" parent="Pickups" unique_id=884887961 instance=ExtResource("5_coin")]
 position = Vector2(3060, 258)
 
-[node name="Coin19" parent="Pickups" instance=ExtResource("5_coin")]
+[node name="Coin19" parent="Pickups" unique_id=761376108 instance=ExtResource("5_coin")]
 position = Vector2(3260, 402)
 
-[node name="Enemies" type="Node2D" parent="."]
+[node name="Enemies" type="Node2D" parent="." unique_id=1897484293]
 z_index = 5
 
-[node name="Enemy01" parent="Enemies" instance=ExtResource("6_enemy")]
-position = Vector2(285, 420)
+[node name="Enemy01" parent="Enemies" unique_id=1930894916 instance=ExtResource("6_enemy")]
+position = Vector2(285, 446)
 patrol_distance = 90.0
 
-[node name="Enemy02" parent="Enemies" instance=ExtResource("6_enemy")]
-position = Vector2(1270, 420)
+[node name="Enemy02" parent="Enemies" unique_id=1650109924 instance=ExtResource("6_enemy")]
+position = Vector2(1270, 446)
 patrol_distance = 120.0
 
-[node name="Enemy03" parent="Enemies" instance=ExtResource("6_enemy")]
-position = Vector2(2070, 420)
+[node name="Enemy03" parent="Enemies" unique_id=346084642 instance=ExtResource("6_enemy")]
+position = Vector2(2070, 446)
 patrol_distance = 95.0
 
-[node name="Enemy04" parent="Enemies" instance=ExtResource("6_enemy")]
-position = Vector2(2900, 420)
+[node name="Enemy04" parent="Enemies" unique_id=2023981845 instance=ExtResource("6_enemy")]
+position = Vector2(2900, 446)
 patrol_distance = 100.0
 
-[node name="GameplayAreas" type="Node2D" parent="."]
+[node name="GameplayAreas" type="Node2D" parent="." unique_id=125739288]
 z_index = 3
 
-[node name="Spikes01" parent="GameplayAreas" instance=ExtResource("3_spikes")]
+[node name="Spikes01" parent="GameplayAreas" unique_id=1705760477 instance=ExtResource("3_spikes")]
 offset_left = 690.0
 offset_top = 436.0
 offset_right = 786.0
 offset_bottom = 460.0
 
-[node name="Spikes02" parent="GameplayAreas" instance=ExtResource("3_spikes")]
+[node name="Spikes02" parent="GameplayAreas" unique_id=214647927 instance=ExtResource("3_spikes")]
 offset_left = 1480.0
 offset_top = 436.0
 offset_right = 1544.0
 offset_bottom = 460.0
 
-[node name="Spikes03" parent="GameplayAreas" instance=ExtResource("3_spikes")]
+[node name="Spikes03" parent="GameplayAreas" unique_id=299054560 instance=ExtResource("3_spikes")]
 offset_left = 2260.0
 offset_top = 436.0
 offset_right = 2356.0
 offset_bottom = 460.0
 
-[node name="Spikes04" parent="GameplayAreas" instance=ExtResource("3_spikes")]
+[node name="Spikes04" parent="GameplayAreas" unique_id=454429061 instance=ExtResource("3_spikes")]
 offset_left = 3100.0
 offset_top = 436.0
 offset_right = 3196.0
 offset_bottom = 460.0
 
-[node name="DeathZone" parent="GameplayAreas" instance=ExtResource("4_kill_zone")]
+[node name="DeathZone" parent="GameplayAreas" unique_id=442558577 instance=ExtResource("4_kill_zone")]
 offset_left = -400.0
 offset_top = 600.0
 offset_right = 3800.0
 offset_bottom = 780.0
 
-[node name="Checkpoint01" parent="GameplayAreas" instance=ExtResource("7_checkpoint")]
-position = Vector2(1940, 460)
+[node name="Checkpoint01" parent="GameplayAreas" unique_id=343255901 instance=ExtResource("7_checkpoint")]
+position = Vector2(1889, 459)
 
-[node name="Goal" parent="GameplayAreas" instance=ExtResource("8_goal")]
+[node name="Goal" parent="GameplayAreas" unique_id=1718483056 instance=ExtResource("8_goal")]
 position = Vector2(3290, 460)
 
-[node name="Markers" type="Node2D" parent="."]
+[node name="Markers" type="Node2D" parent="." unique_id=519893421]
 
-[node name="PlayerSpawn" type="Marker2D" parent="Markers"]
+[node name="PlayerSpawn" type="Marker2D" parent="Markers" unique_id=1565305595]
 position = Vector2(135, 410)
 gizmo_extents = 24.0

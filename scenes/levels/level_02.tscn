@@ -1,0 +1,284 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_level"]
+[ext_resource type="PackedScene" path="res://scenes/components/platform_block.tscn" id="2_platform"]
+[ext_resource type="PackedScene" path="res://scenes/components/spike_strip.tscn" id="3_spikes"]
+[ext_resource type="PackedScene" path="res://scenes/components/kill_zone.tscn" id="4_kill_zone"]
+[ext_resource type="PackedScene" path="res://scenes/coin.tscn" id="5_coin"]
+[ext_resource type="PackedScene" path="res://scenes/patrol_enemy.tscn" id="6_patrol_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/flying_enemy.tscn" id="7_flying_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/components/checkpoint.tscn" id="8_checkpoint"]
+[ext_resource type="PackedScene" path="res://scenes/goal.tscn" id="9_goal"]
+[ext_resource type="Texture2D" path="res://assets/environment/kingdom-background.png" id="10_background"]
+
+[node name="Level02" type="Node2D"]
+script = ExtResource("1_level")
+level_title = "Skyline Relay"
+level_bounds = Rect2(0, 0, 3800, 540)
+background_texture = ExtResource("10_background")
+
+[node name="EditorGuides" type="Node2D" parent="."]
+
+[node name="LevelBounds" type="ReferenceRect" parent="EditorGuides"]
+offset_right = 3800.0
+offset_bottom = 540.0
+mouse_filter = 2
+border_color = Color(0.2, 0.85, 1, 0.85)
+border_width = 2.0
+editor_only = true
+
+[node name="Terrain" type="Node2D" parent="."]
+z_index = 1
+
+[node name="Ground01" parent="Terrain" instance=ExtResource("2_platform")]
+offset_top = 460.0
+offset_right = 760.0
+offset_bottom = 540.0
+
+[node name="Ground02" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 920.0
+offset_top = 460.0
+offset_right = 1510.0
+offset_bottom = 540.0
+
+[node name="Ground03" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 1690.0
+offset_top = 460.0
+offset_right = 2360.0
+offset_bottom = 540.0
+
+[node name="Ground04" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 2530.0
+offset_top = 460.0
+offset_right = 3200.0
+offset_bottom = 540.0
+
+[node name="Ground05" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 3370.0
+offset_top = 460.0
+offset_right = 3800.0
+offset_bottom = 540.0
+
+[node name="Ledge01" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 610.0
+offset_top = 370.0
+offset_right = 800.0
+offset_bottom = 398.0
+
+[node name="Ledge02" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 820.0
+offset_top = 300.0
+offset_right = 960.0
+offset_bottom = 328.0
+
+[node name="Ledge03" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 1110.0
+offset_top = 345.0
+offset_right = 1270.0
+offset_bottom = 373.0
+
+[node name="Ledge04" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 1420.0
+offset_top = 270.0
+offset_right = 1580.0
+offset_bottom = 298.0
+
+[node name="Ledge05" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 1590.0
+offset_top = 350.0
+offset_right = 1750.0
+offset_bottom = 378.0
+
+[node name="Ledge06" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 1960.0
+offset_top = 300.0
+offset_right = 2140.0
+offset_bottom = 328.0
+
+[node name="Ledge07" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 2260.0
+offset_top = 220.0
+offset_right = 2420.0
+offset_bottom = 248.0
+
+[node name="Ledge08" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 2430.0
+offset_top = 330.0
+offset_right = 2580.0
+offset_bottom = 358.0
+
+[node name="Ledge09" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 2800.0
+offset_top = 360.0
+offset_right = 2980.0
+offset_bottom = 388.0
+
+[node name="Ledge10" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 3110.0
+offset_top = 280.0
+offset_right = 3280.0
+offset_bottom = 308.0
+
+[node name="Ledge11" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 3260.0
+offset_top = 360.0
+offset_right = 3430.0
+offset_bottom = 388.0
+
+[node name="LeftWall" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = -60.0
+offset_top = -100.0
+offset_right = 0.0
+offset_bottom = 600.0
+grass_top = false
+
+[node name="Pickups" type="Node2D" parent="."]
+z_index = 4
+
+[node name="Coin01" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(300, 410)
+
+[node name="Coin02" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(650, 335)
+
+[node name="Coin03" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(850, 265)
+
+[node name="Coin04" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(1160, 310)
+
+[node name="Coin05" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(1480, 235)
+
+[node name="Coin06" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(1640, 315)
+
+[node name="Coin07" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(1810, 410)
+
+[node name="Coin08" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(2010, 265)
+
+[node name="Coin09" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(2330, 185)
+
+[node name="Coin10" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(2480, 295)
+
+[node name="Coin11" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(2710, 410)
+
+[node name="Coin12" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(2880, 325)
+
+[node name="Coin13" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(3180, 245)
+
+[node name="Coin14" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(3330, 325)
+
+[node name="Coin15" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(3550, 410)
+
+[node name="Coin16" parent="Pickups" instance=ExtResource("5_coin")]
+position = Vector2(3700, 410)
+
+[node name="Enemies" type="Node2D" parent="."]
+z_index = 5
+
+[node name="PatrolEnemy01" parent="Enemies" instance=ExtResource("6_patrol_enemy")]
+position = Vector2(450, 446)
+patrol_distance = 100.0
+
+[node name="FlyingEnemy01" parent="Enemies" instance=ExtResource("7_flying_enemy")]
+position = Vector2(850, 225)
+patrol_distance = 95.0
+hover_phase_degrees = 20.0
+
+[node name="PatrolEnemy02" parent="Enemies" instance=ExtResource("6_patrol_enemy")]
+position = Vector2(1240, 446)
+patrol_distance = 105.0
+
+[node name="FlyingEnemy02" parent="Enemies" instance=ExtResource("7_flying_enemy")]
+position = Vector2(1510, 195)
+speed = 82.0
+patrol_distance = 105.0
+hover_amplitude = 16.0
+hover_phase_degrees = 120.0
+
+[node name="PatrolEnemy03" parent="Enemies" instance=ExtResource("6_patrol_enemy")]
+position = Vector2(2070, 446)
+patrol_distance = 110.0
+
+[node name="FlyingEnemy03" parent="Enemies" instance=ExtResource("7_flying_enemy")]
+position = Vector2(2340, 150)
+speed = 76.0
+patrol_distance = 90.0
+hover_frequency = 1.45
+hover_phase_degrees = 220.0
+
+[node name="PatrolEnemy04" parent="Enemies" instance=ExtResource("6_patrol_enemy")]
+position = Vector2(2840, 446)
+patrol_distance = 100.0
+
+[node name="FlyingEnemy04" parent="Enemies" instance=ExtResource("7_flying_enemy")]
+position = Vector2(3190, 205)
+speed = 86.0
+patrol_distance = 110.0
+hover_amplitude = 15.0
+hover_phase_degrees = 300.0
+
+[node name="PatrolEnemy05" parent="Enemies" instance=ExtResource("6_patrol_enemy")]
+position = Vector2(3540, 446)
+patrol_distance = 70.0
+
+[node name="GameplayAreas" type="Node2D" parent="."]
+z_index = 3
+
+[node name="Spikes01" parent="GameplayAreas" instance=ExtResource("3_spikes")]
+offset_left = 680.0
+offset_top = 436.0
+offset_right = 744.0
+offset_bottom = 460.0
+
+[node name="Spikes02" parent="GameplayAreas" instance=ExtResource("3_spikes")]
+offset_left = 1320.0
+offset_top = 436.0
+offset_right = 1384.0
+offset_bottom = 460.0
+
+[node name="Spikes03" parent="GameplayAreas" instance=ExtResource("3_spikes")]
+offset_left = 2160.0
+offset_top = 436.0
+offset_right = 2256.0
+offset_bottom = 460.0
+
+[node name="Spikes04" parent="GameplayAreas" instance=ExtResource("3_spikes")]
+offset_left = 3000.0
+offset_top = 436.0
+offset_right = 3096.0
+offset_bottom = 460.0
+
+[node name="Spikes05" parent="GameplayAreas" instance=ExtResource("3_spikes")]
+offset_left = 3480.0
+offset_top = 436.0
+offset_right = 3544.0
+offset_bottom = 460.0
+
+[node name="DeathZone" parent="GameplayAreas" instance=ExtResource("4_kill_zone")]
+offset_left = -400.0
+offset_top = 600.0
+offset_right = 4200.0
+offset_bottom = 780.0
+
+[node name="Checkpoint01" parent="GameplayAreas" instance=ExtResource("8_checkpoint")]
+position = Vector2(1900, 460)
+
+[node name="Goal" parent="GameplayAreas" instance=ExtResource("9_goal")]
+position = Vector2(3715, 460)
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="PlayerSpawn" type="Marker2D" parent="Markers"]
+position = Vector2(120, 410)
+gizmo_extents = 24.0

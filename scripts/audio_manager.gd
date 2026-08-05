@@ -16,6 +16,7 @@ const STREAM_PATHS: Dictionary = {
 	&"checkpoint_raise": "res://assets/audio/sfx/checkpoint_raise.wav",
 	&"goal_flag_lower": "res://assets/audio/sfx/goal_flag_lower.wav",
 	&"level_complete": "res://assets/audio/sfx/level_complete.wav",
+	&"game_over": "res://assets/audio/sfx/game_over.wav",
 	&"ui_pause_toggle": "res://assets/audio/sfx/ui_pause_toggle.wav",
 	&"ui_hover": "res://assets/audio/sfx/ui_hover.wav",
 	&"ui_confirm": "res://assets/audio/sfx/ui_confirm.wav",

@@ -1,6 +1,6 @@
 # Sound effects
 
-The 15 WAV files in `sfx/` are game-specific adaptations of sound effects
+The 16 WAV files in `sfx/` are game-specific adaptations of sound effects
 published on Pixabay and collected on 2026-08-06. The original MP3 files are
 not stored in this repository.
 
@@ -79,6 +79,14 @@ download records are retained here.
 - Download: <https://cdn.pixabay.com/download/audio/2022/04/29/audio_f28098ce3c.mp3?filename=swing-whoosh-110410.mp3>
 - SHA-256: `acac9d9e5137fdb038f39aef89650b437a30a6b38c833859115c0677692c77dd`
 
+### Game Over 31
+
+- Contributor: Tuomas_Data
+- Source page: <https://pixabay.com/sound-effects/film-special-effects-game-over-31-179699/>
+- Download: <https://cdn.pixabay.com/download/audio/2023/12/04/audio_b62aad1ff9.mp3?filename=tuomas_data-game-over-31-179699.mp3>
+- SHA-256: `01ab4b2678b8c7f3c07ceb57056021925844bb216bf7d90b0d4f65682dbe8164`
+- Processed `sfx/game_over.wav` SHA-256: `a5580bfa30c2bfaf2f33f38b67f12b8a8ad13fdcf2434a7c2f10463c731b160b`
+
 ## Output mapping
 
 | Game sound | Adapted from |
@@ -92,6 +100,7 @@ download records are retained here.
 | `checkpoint_raise.wav` | Reversed Mechanical Door + Item Pickup |
 | `goal_flag_lower.wav` | Mechanical Door + toy button |
 | `level_complete.wav` | Item Pickup four-note layer + toy button |
+| `game_over.wav` | Game Over 31 |
 | `ui_pause_toggle.wav`, `ui_hover.wav`, `ui_back.wav` | toy button |
 | `ui_confirm.wav` | Item Pickup + toy button |
 

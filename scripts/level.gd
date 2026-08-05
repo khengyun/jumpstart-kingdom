@@ -14,10 +14,12 @@ signal goal_reached
 
 
 func _ready() -> void:
-	_connect_branch_signals($Pickups, &"collected", _on_coin_collected)
-	_connect_branch_signals($Enemies, &"defeated", _on_enemy_defeated)
-	_connect_branch_signals($GameplayAreas, &"activated", _on_checkpoint_activated)
-	_connect_branch_signals($GameplayAreas, &"reached", _on_goal_reached)
+	_connect_branch_signals(get_node_or_null("Pickups"), &"collected", _on_coin_collected)
+	_connect_branch_signals(get_node_or_null("Enemies"), &"defeated", _on_enemy_defeated)
+	_connect_branch_signals(
+		get_node_or_null("GameplayAreas"), &"activated", _on_checkpoint_activated
+	)
+	_connect_branch_signals(get_node_or_null("GameplayAreas"), &"reached", _on_goal_reached)
 
 
 func get_player_spawn_position() -> Vector2:
@@ -27,7 +29,10 @@ func get_player_spawn_position() -> Vector2:
 func _connect_branch_signals(
 	branch: Node, signal_name: StringName, callback: Callable
 ) -> void:
-	for child: Node in branch.get_children():
+	if branch == null:
+		push_warning("Level is missing the expected branch for signal: %s" % signal_name)
+		return
+	for child: Node in branch.find_children("*", "", true, false):
 		if child.has_signal(signal_name) and not child.is_connected(signal_name, callback):
 			child.connect(signal_name, callback)
 

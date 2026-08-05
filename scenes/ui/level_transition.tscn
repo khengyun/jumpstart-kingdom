@@ -1,0 +1,92 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/level_transition.gd" id="1_script"]
+[ext_resource type="Theme" path="res://assets/ui/menu_theme.tres" id="2_theme"]
+
+[node name="LevelTransition" type="Control"]
+process_mode = 3
+visible = false
+z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Curtain" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.015, 0.075, 0.12, 1)
+
+[node name="TopRail" type="ColorRect" parent="Curtain"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2
+mouse_filter = 2
+color = Color(0.18, 0.78, 0.98, 1)
+
+[node name="BottomRail" type="ColorRect" parent="Curtain"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(0.96, 0.37, 0.09, 1)
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -270.0
+offset_top = -92.0
+offset_right = 270.0
+offset_bottom = 92.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="StageLabel" type="Label" parent="Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.38, 0.82, 0.98, 1)
+theme_override_font_sizes/font_size = 18
+text = "STAGE 01"
+horizontal_alignment = 1
+
+[node name="Accent" type="ColorRect" parent="Content"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.96, 0.37, 0.09, 1)
+
+[node name="TitleLabel" type="Label" parent="Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.98, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "GREEN CIRCUIT"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.72, 0.8, 1)
+theme_override_font_sizes/font_size = 14
+text = "GET READY"
+horizontal_alignment = 1

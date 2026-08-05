@@ -28,6 +28,7 @@ const LAND_SOUND_MIN_SPEED: float = 180.0
 @export_range(0.0, 2000.0, 5.0) var stomp_bounce_speed: float = 400.0
 @export_range(0.0, 5000.0, 10.0) var gravity: float = 1500.0
 @export_range(0.0, 3000.0, 5.0) var terminal_velocity: float = 900.0
+@export_range(1, 4, 1) var max_jump_count: int = 2
 @export_range(0.0, 1.0, 0.01) var jump_cut_ratio: float = 0.42
 @export_range(0.0, 0.5, 0.01) var coyote_time: float = 0.12
 @export_range(0.0, 0.5, 0.01) var jump_buffer_time: float = 0.12
@@ -41,6 +42,7 @@ const LAND_SOUND_MIN_SPEED: float = 180.0
 
 var _coyote_timer: float = 0.0
 var _jump_buffer_timer: float = 0.0
+var _jumps_used: int = 0
 var _facing_direction: float = 1.0
 var _is_dead: bool = false
 var _has_landed_once: bool = false
@@ -86,8 +88,13 @@ func _physics_process(delta: float) -> void:
 func _update_jump_windows(delta: float) -> void:
 	if is_on_floor():
 		_coyote_timer = coyote_time
+		_jumps_used = 0
 	else:
 		_coyote_timer = maxf(_coyote_timer - delta, 0.0)
+		# Walking off an edge spends the ground jump once coyote time expires,
+		# while still preserving the additional air jump.
+		if is_zero_approx(_coyote_timer) and _jumps_used == 0:
+			_jumps_used = 1
 
 	if Input.is_action_just_pressed(JUMP_ACTION):
 		_jump_buffer_timer = jump_buffer_time
@@ -118,13 +125,27 @@ func _apply_gravity(delta: float) -> void:
 
 
 func _consume_buffered_jump() -> void:
-	if _jump_buffer_timer <= 0.0 or _coyote_timer <= 0.0:
+	if _jump_buffer_timer <= 0.0:
+		return
+
+	var can_ground_jump: bool = _coyote_timer > 0.0 and _jumps_used == 0
+	var can_air_jump: bool = (
+		not is_on_floor()
+		and _jumps_used > 0
+		and _jumps_used < max_jump_count
+	)
+	if not can_ground_jump and not can_air_jump:
 		return
 
 	velocity.y = -jump_speed
+	_jumps_used += 1
 	_jump_buffer_timer = 0.0
 	_coyote_timer = 0.0
-	GameAudio.play_sound(&"robot_jump", -5.0, 0.98, 1.02)
+	_play_animation(JUMP_ANIMATION, true)
+	if can_air_jump:
+		GameAudio.play_sound(&"robot_jump", -4.0, 1.10, 1.14)
+	else:
+		GameAudio.play_sound(&"robot_jump", -5.0, 0.98, 1.02)
 
 
 func _apply_variable_jump_cut() -> void:
@@ -140,6 +161,8 @@ func bounce(strength: float = 0.0) -> void:
 
 	var bounce_strength: float = strength if strength > 0.0 else stomp_bounce_speed
 	velocity.y = -bounce_strength
+	# A successful stomp restores one aerial jump as a small player reward.
+	_jumps_used = mini(_jumps_used, maxi(max_jump_count - 1, 0))
 	_coyote_timer = 0.0
 	_jump_buffer_timer = 0.0
 
@@ -163,6 +186,7 @@ func respawn() -> void:
 	velocity = Vector2.ZERO
 	_coyote_timer = 0.0
 	_jump_buffer_timer = 0.0
+	_jumps_used = 0
 	_is_dead = false
 	_has_landed_once = false
 	set_physics_process(true)

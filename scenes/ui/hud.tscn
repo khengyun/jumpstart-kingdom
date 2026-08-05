@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://c5xqwowk781gl"]
 
-[ext_resource type="Script" path="res://scripts/hud.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://ce15gt702p1si" path="res://scripts/hud.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/robot-life-core.png" id="2_life_icon"]
 
-[node name="HUD" type="Control"]
+[node name="HUD" type="Control" unique_id=350800091]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,14 +14,13 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_script")
 
-[node name="ScoreLabel" type="Label" parent="."]
+[node name="ScoreLabel" type="Label" parent="." unique_id=2092781391]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 20.0
 offset_top = 16.0
 offset_right = 610.0
 offset_bottom = 46.0
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0.09, 0.212, 0.29, 1)
 theme_override_constants/shadow_offset_x = 2
@@ -29,27 +28,70 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 22
 text = "SCORE  000000    COINS  00    DEATHS  00"
 
-[node name="LevelLabel" type="Label" parent="."]
+[node name="LevelLabel" type="Label" parent="." unique_id=591147588]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -300.0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -180.0
 offset_top = 16.0
-offset_right = -20.0
+offset_right = 180.0
 offset_bottom = 46.0
-grow_horizontal = 0
-mouse_filter = 2
+grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0.09, 0.212, 0.29, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 20
 text = "GREEN CIRCUIT"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
-[node name="HelpLabel" type="Label" parent="."]
+[node name="LivesContainer" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -126.0
+offset_top = 8.0
+offset_right = -18.0
+offset_bottom = 44.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_constants/separation = 4
+alignment = 2
+
+[node name="LifeIcon1" type="TextureRect" parent="LivesContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+texture_filter = 1
+texture = ExtResource("2_life_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LifeIcon2" type="TextureRect" parent="LivesContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+texture_filter = 1
+texture = ExtResource("2_life_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LifeIcon3" type="TextureRect" parent="LivesContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+texture_filter = 1
+texture = ExtResource("2_life_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HelpLabel" type="Label" parent="." unique_id=617438805]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -61,7 +103,6 @@ offset_right = -20.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0.09, 0.212, 0.29, 1)
 theme_override_constants/shadow_offset_x = 2
