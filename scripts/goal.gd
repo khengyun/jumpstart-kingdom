@@ -16,5 +16,6 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	_activated = true
 	set_deferred("monitoring", false)
+	GameAudio.play_sound(&"goal_flag_lower", -6.0)
 	_flag.call("lower_flag")
 	reached.emit()

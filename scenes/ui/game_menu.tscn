@@ -1,0 +1,183 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/game_menu.gd" id="1_script"]
+[ext_resource type="Theme" path="res://assets/ui/menu_theme.tres" id="2_theme"]
+
+[node name="GameMenu" type="Control"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Dimmer" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.01, 0.035, 0.06, 0.73)
+
+[node name="PausePanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -211.0
+offset_right = 210.0
+offset_bottom = 211.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="PausePanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Kicker" type="Label" parent="PausePanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.38, 0.82, 0.98, 1)
+theme_override_font_sizes/font_size = 14
+text = "ADVENTURE ON HOLD"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="PausePanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 33
+text = "Game Paused"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="PausePanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.59, 0.74, 0.81, 1)
+theme_override_font_sizes/font_size = 14
+text = "Your little robot will wait right here."
+horizontal_alignment = 1
+
+[node name="Divider" type="HSeparator" parent="PausePanel/VBox"]
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="PausePanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+text = "RESUME"
+
+[node name="RestartButton" type="Button" parent="PausePanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "Restart Level"
+
+[node name="PauseSettingsButton" type="Button" parent="PausePanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "Settings"
+
+[node name="PauseMainMenuButton" type="Button" parent="PausePanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "Main Menu"
+
+[node name="Hint" type="Label" parent="PausePanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.52, 0.68, 0.75, 1)
+theme_override_font_sizes/font_size = 13
+text = "Press Esc to resume"
+horizontal_alignment = 1
+
+[node name="WinPanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -245.0
+offset_top = -230.0
+offset_right = 245.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="WinPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Kicker" type="Label" parent="WinPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.65, 0.24, 1)
+theme_override_font_sizes/font_size = 14
+text = "STAGE CLEAR"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="WinPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 33
+text = "Level Complete!"
+horizontal_alignment = 1
+
+[node name="WinLevelTitle" type="Label" parent="WinPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.59, 0.74, 0.81, 1)
+theme_override_font_sizes/font_size = 15
+text = "Green Circuit cleared"
+horizontal_alignment = 1
+
+[node name="Divider" type="HSeparator" parent="WinPanel/VBox"]
+layout_mode = 2
+
+[node name="ScoreCaption" type="Label" parent="WinPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.52, 0.68, 0.75, 1)
+theme_override_font_sizes/font_size = 13
+text = "FINAL SCORE"
+horizontal_alignment = 1
+
+[node name="WinScoreValue" type="Label" parent="WinPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.86, 0.54, 1)
+theme_override_font_sizes/font_size = 31
+text = "000000"
+horizontal_alignment = 1
+
+[node name="PrimaryButton" type="Button" parent="WinPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+text = "PLAY AGAIN"
+
+[node name="WinSettingsButton" type="Button" parent="WinPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "Settings"
+
+[node name="WinAboutButton" type="Button" parent="WinPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "About"
+
+[node name="WinMainMenuButton" type="Button" parent="WinPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "Main Menu"

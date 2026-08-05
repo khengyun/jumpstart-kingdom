@@ -67,6 +67,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 
 func _be_defeated() -> void:
 	_is_defeated = true
+	GameAudio.play_sound(&"enemy_stomp", -4.0, 0.95, 1.04)
 	velocity = Vector2.ZERO
 	collision_layer = 0
 	hitbox.set_deferred("monitoring", false)

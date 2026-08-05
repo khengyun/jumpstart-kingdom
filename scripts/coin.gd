@@ -30,6 +30,7 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 
 	_taken = true
+	GameAudio.play_sound(&"coin_collect", -3.0, 0.98, 1.04)
 	set_deferred("monitoring", false)
 	set_physics_process(false)
 	collected.emit(value)

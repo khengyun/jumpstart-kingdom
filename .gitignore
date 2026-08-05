@@ -12,3 +12,12 @@ build/
 exports/
 .DS_Store
 Thumbs.db
+
+# Local API credentials
+.env
+.env.*
+!.env.example
+
+# ElevenLabs Free-plan output: keep raw SFX local and package only inside the game.
+assets/audio/sfx/*.wav
+assets/audio/sfx/*.wav.import

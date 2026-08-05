@@ -1,31 +1,28 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://cpe223h36246k"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_player_script"]
+[ext_resource type="Script" uid="uid://ln4lutmkrof1" path="res://scripts/player.gd" id="1_player_script"]
 [ext_resource type="SpriteFrames" path="res://assets/player/jumpstart-robot-frames.tres" id="2_robot_frames"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_player"]
-radius = 10.0
-height = 30.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" unique_id=734298052]
 z_index = 10
 collision_layer = 2
-collision_mask = 1
-floor_snap_length = 5.0
 floor_max_angle = 0.872665
+floor_snap_length = 5.0
 script = ExtResource("1_player_script")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=818974599]
 shape = SubResource("CapsuleShape2D_player")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=619585579]
 texture_filter = 1
 position = Vector2(0, -15)
 sprite_frames = ExtResource("2_robot_frames")
-animation = &"idle"
-autoplay = "idle"
+animation = &"run"
+frame_progress = 0.32882777
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1636237501]
 position = Vector2(0, -24)
 position_smoothing_enabled = true
 position_smoothing_speed = 7.0

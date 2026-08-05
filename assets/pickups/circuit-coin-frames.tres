@@ -1,6 +1,38 @@
-[gd_resource type="SpriteFrames" load_steps=18 format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://djfaatuyafhgf"]
 
-[ext_resource type="Texture2D" path="res://assets/pickups/circuit-coin-sprites.png" id="1_coin_sheet"]
+[ext_resource type="Texture2D" uid="uid://c3dop1i678cny" path="res://assets/pickups/circuit-coin-sprites.png" id="1_coin_sheet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_collect_0"]
+atlas = ExtResource("1_coin_sheet")
+region = Rect2(0, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_collect_1"]
+atlas = ExtResource("1_coin_sheet")
+region = Rect2(48, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_collect_2"]
+atlas = ExtResource("1_coin_sheet")
+region = Rect2(96, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_collect_3"]
+atlas = ExtResource("1_coin_sheet")
+region = Rect2(144, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shine_0"]
+atlas = ExtResource("1_coin_sheet")
+region = Rect2(0, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shine_1"]
+atlas = ExtResource("1_coin_sheet")
+region = Rect2(48, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shine_2"]
+atlas = ExtResource("1_coin_sheet")
+region = Rect2(96, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shine_3"]
+atlas = ExtResource("1_coin_sheet")
+region = Rect2(144, 96, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_spin_0"]
 atlas = ExtResource("1_coin_sheet")
@@ -34,38 +66,6 @@ region = Rect2(96, 48, 48, 48)
 atlas = ExtResource("1_coin_sheet")
 region = Rect2(144, 48, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_shine_0"]
-atlas = ExtResource("1_coin_sheet")
-region = Rect2(0, 96, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_shine_1"]
-atlas = ExtResource("1_coin_sheet")
-region = Rect2(48, 96, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_shine_2"]
-atlas = ExtResource("1_coin_sheet")
-region = Rect2(96, 96, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_shine_3"]
-atlas = ExtResource("1_coin_sheet")
-region = Rect2(144, 96, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_collect_0"]
-atlas = ExtResource("1_coin_sheet")
-region = Rect2(0, 144, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_collect_1"]
-atlas = ExtResource("1_coin_sheet")
-region = Rect2(48, 144, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_collect_2"]
-atlas = ExtResource("1_coin_sheet")
-region = Rect2(96, 144, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_collect_3"]
-atlas = ExtResource("1_coin_sheet")
-region = Rect2(144, 144, 48, 48)
-
 [resource]
 animations = [{
 "frames": [{
@@ -81,7 +81,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_collect_3")
 }],
-"loop": false,
+"loop": 0,
 "name": &"collect",
 "speed": 16.0
 }, {
@@ -98,7 +98,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_shine_3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"shine",
 "speed": 6.0
 }, {
@@ -127,7 +127,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_spin_7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"spin",
 "speed": 12.0
 }]

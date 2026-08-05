@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/platform_block.gd" id="1_platform"]
+[ext_resource type="Texture2D" path="res://assets/environment/warm-soil-tile.png" id="2_soil"]
+[ext_resource type="Texture2D" path="res://assets/environment/grass-top-tile.png" id="3_grass"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform"]
+resource_local_to_scene = true
+size = Vector2(320, 80)
+
+[node name="PlatformBlock" type="Control"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 80.0
+mouse_filter = 2
+script = ExtResource("1_platform")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(160, 40)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_platform")
+
+[node name="Soil" type="TextureRect" parent="."]
+texture_filter = 1
+texture_repeat = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_soil")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Grass" type="TextureRect" parent="."]
+z_index = 1
+texture_filter = 1
+texture_repeat = 2
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 16.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("3_grass")
+expand_mode = 1
+stretch_mode = 1

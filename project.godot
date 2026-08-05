@@ -19,6 +19,14 @@ config/icon="res://assets/branding/jumpstart-icon.png"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7")
 
+[autoload]
+
+
+
+
+GameAudio="*res://scripts/audio_manager.gd"
+GameSettings="*res://scripts/game_settings.gd"
+
 [display]
 
 window/size/viewport_width=960

@@ -37,6 +37,8 @@ The game is designed at 960×540, uses the GL Compatibility renderer, and can be
 - Original pixel-art background, terrain, animated pickups, and animated enemies.
 - Wind-blown checkpoint and goal flags with raising and lowering animations.
 - Mechanical spike artwork layered over stable gameplay hitboxes.
+- Start, pause, settings, about, and level-complete menus with keyboard focus.
+- Editor-visible level scenes with draggable and resizable map components.
 - Automated Web builds and itch.io deployment through GitHub Actions.
 
 ## Controls
@@ -95,9 +97,13 @@ godot --headless --path . --quit-after 180
 ├── assets/objects/       # Animated flag sheet and animation resource
 ├── assets/pickups/       # Circuit coin sprite sheet and animation resource
 ├── assets/player/        # Robot sprite sheet and animation resource
+├── assets/ui/            # Shared normal-font menu theme
 ├── marketing/itch/       # Storefront artwork; excluded from game exports
-├── scenes/               # Main, player, collectible, enemy, and goal scenes
-├── scripts/              # Gameplay, movement, UI, and scene construction
+├── scenes/components/    # Reusable platforms, hazards, and checkpoints
+├── scenes/levels/        # Maps authored visually in the Godot editor
+├── scenes/ui/            # HUD and reusable menu scenes
+├── scripts/              # App state, session, gameplay, editor tools, and UI
+├── docs/                 # Project editing guides
 ├── .github/workflows/    # Web build and itch.io deployment pipeline
 ├── .vscode/              # Optional Flatpak tasks and Godot debug settings
 ├── export_presets.cfg    # Godot Web export preset
@@ -107,6 +113,16 @@ godot --headless --path . --quit-after 180
 The collision layers are named `World`, `Player`, `Enemy`, and `Pickup`. Storefront artwork lives under `marketing/` and is kept out of Godot imports and release bundles by `marketing/.gdignore`.
 
 The included VS Code tasks open or run the project through Flatpak. Debug launch configurations use the recommended `geequlim.godot-tools` extension.
+
+## Edit or Add Levels
+
+Open `scenes/levels/level_01.tscn` to edit the current map visually. Platforms
+and spike strips can be moved and resized directly; coins, enemies, the spawn
+marker, checkpoint, and goal are normal scene instances.
+
+To add another level, save Level 1 as `level_02.tscn`, edit it, then add that
+scene to the exported `Levels` array on the root of `scenes/main.tscn`. See the
+step-by-step [level editing guide](docs/LEVEL_EDITING.md).
 
 ## Web Export
 
@@ -134,5 +150,9 @@ Production deployment requires the repository secret `BUTLER_API_KEY`, the repos
 ## Credits
 
 Created by [Ken](https://khengyun.itch.io/) with [Godot Engine](https://godotengine.org/). Gameplay code and runtime artwork are original to this project.
+
+Sound effects were generated with [ElevenLabs](https://elevenlabs.io/). The current Free-plan takes are used only in the non-commercial build and are not distributed as a standalone sound library.
+
+The generated WAV files are intentionally kept out of Git. Local copies in `assets/audio/sfx/` load automatically; a clean checkout and GitHub Actions build remain playable with silent fallbacks until redistributable SFX are provisioned for the release pipeline.
 
 This independent project is not affiliated with Nintendo and contains no Nintendo characters, names, or assets.

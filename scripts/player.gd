@@ -14,6 +14,7 @@ const FALL_ANIMATION: StringName = &"fall"
 const DEATH_ANIMATION: StringName = &"death"
 const RUN_ANIMATION_THRESHOLD: float = 10.0
 const FALL_ANIMATION_THRESHOLD: float = 20.0
+const LAND_SOUND_MIN_SPEED: float = 180.0
 
 @export_category("Horizontal Movement")
 @export_range(0.0, 1000.0, 1.0) var max_speed: float = 220.0
@@ -42,11 +43,13 @@ var _coyote_timer: float = 0.0
 var _jump_buffer_timer: float = 0.0
 var _facing_direction: float = 1.0
 var _is_dead: bool = false
+var _has_landed_once: bool = false
 
 
 func _ready() -> void:
 	if initialize_spawn_from_scene:
 		spawn_position = global_position
+	_sprite.frame_changed.connect(_on_sprite_frame_changed)
 	_sprite.play(IDLE_ANIMATION)
 
 
@@ -60,7 +63,20 @@ func _physics_process(delta: float) -> void:
 	_consume_buffered_jump()
 	_apply_variable_jump_cut()
 
+	var was_on_floor: bool = is_on_floor()
+	var downward_speed: float = maxf(velocity.y, 0.0)
 	move_and_slide()
+	if not was_on_floor and is_on_floor():
+		if _has_landed_once and downward_speed >= LAND_SOUND_MIN_SPEED:
+			var landing_strength: float = inverse_lerp(
+				LAND_SOUND_MIN_SPEED, terminal_velocity, minf(downward_speed, terminal_velocity)
+			)
+			GameAudio.play_sound(
+				&"robot_land", lerpf(-10.0, -6.0, landing_strength), 0.96, 1.03
+			)
+		_has_landed_once = true
+	elif is_on_floor():
+		_has_landed_once = true
 	_update_animation()
 
 	if global_position.y >= death_y:
@@ -108,6 +124,7 @@ func _consume_buffered_jump() -> void:
 	velocity.y = -jump_speed
 	_jump_buffer_timer = 0.0
 	_coyote_timer = 0.0
+	GameAudio.play_sound(&"robot_jump", -5.0, 0.98, 1.02)
 
 
 func _apply_variable_jump_cut() -> void:
@@ -134,6 +151,7 @@ func die() -> void:
 
 	_is_dead = true
 	velocity = Vector2.ZERO
+	GameAudio.play_sound(&"player_death", -2.0)
 	_play_animation(DEATH_ANIMATION, true)
 	set_physics_process(false)
 	died.emit()
@@ -146,6 +164,7 @@ func respawn() -> void:
 	_coyote_timer = 0.0
 	_jump_buffer_timer = 0.0
 	_is_dead = false
+	_has_landed_once = false
 	set_physics_process(true)
 	_sprite.flip_h = _facing_direction < 0.0
 	_play_animation(IDLE_ANIMATION, true)
@@ -182,3 +201,15 @@ func _update_animation() -> void:
 func _play_animation(animation_name: StringName, restart: bool = false) -> void:
 	if restart or _sprite.animation != animation_name:
 		_sprite.play(animation_name)
+
+
+func _on_sprite_frame_changed() -> void:
+	if (
+		_is_dead
+		or _sprite.animation != RUN_ANIMATION
+		or not is_on_floor()
+		or absf(velocity.x) < RUN_ANIMATION_THRESHOLD
+	):
+		return
+	if _sprite.frame == 0 or _sprite.frame == 2:
+		GameAudio.play_footstep()
