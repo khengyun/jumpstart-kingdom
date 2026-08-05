@@ -84,12 +84,13 @@ jobs:
       (github.event_name == 'workflow_dispatch' && inputs.deploy)
     environment: itch-production
     env:
-      BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
       ITCH_GAME: ${{ vars.ITCH_GAME }}
       BUILD_VERSION: ${{ github.ref_type == 'tag' && github.ref_name || github.sha }}
 
     steps:
       - name: Validate deployment configuration
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
         run: |
           test -n "$BUTLER_API_KEY" || {
             echo "Missing repository secret: BUTLER_API_KEY" >&2
@@ -101,6 +102,8 @@ jobs:
           }
 
       - name: Resolve itch.io account and game page
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
         run: |
           curl --fail --silent --show-error \
             --header "Authorization: Bearer $BUTLER_API_KEY" \
@@ -111,11 +114,25 @@ jobs:
             https://api.itch.io/profile/games \
             --output "$RUNNER_TEMP/itch-games.json"
 
+          validate_api_response() {
+            jq --exit-status \
+              'type == "object" and (((.errors? // []) | length) == 0)' \
+              "$1" > /dev/null || {
+                echo "itch.io API returned an invalid or rejected response." >&2
+                exit 1
+              }
+          }
+          validate_api_response "$RUNNER_TEMP/itch-profile.json"
+          validate_api_response "$RUNNER_TEMP/itch-games.json"
+
           ITCH_USER="$(jq --exit-status --raw-output '.user.username' \
             "$RUNNER_TEMP/itch-profile.json")"
-          TARGET_URL="$(jq --raw-output --arg slug "$ITCH_GAME" \
-            '.games[]? | select((.url // "") | endswith("/" + $slug)) | .url' \
-            "$RUNNER_TEMP/itch-games.json" | head -n 1)"
+          ITCH_BASE_URL="$(jq --exit-status --raw-output '.user.url' \
+            "$RUNNER_TEMP/itch-profile.json")"
+          EXPECTED_URL="${ITCH_BASE_URL%/}/$ITCH_GAME"
+          TARGET_URL="$(jq --raw-output --arg expected "$EXPECTED_URL" \
+            'first(.games[]? | select(((.url // "") | rtrimstr("/")) == $expected) | .url) // empty' \
+            "$RUNNER_TEMP/itch-games.json")"
 
           if [ -z "$TARGET_URL" ]; then
             echo "No itch.io game page found for slug: $ITCH_GAME" >&2
@@ -142,6 +159,8 @@ jobs:
           echo "$RUNNER_TEMP/butler" >> "$GITHUB_PATH"
 
       - name: Push Web build to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
         run: |
           butler push "$BUILD_DIR" "$ITCH_USER/$ITCH_GAME:web" \
             --userversion "$BUILD_VERSION"

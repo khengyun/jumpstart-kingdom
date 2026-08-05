@@ -71,4 +71,6 @@ Publishing to itch.io is enabled for version tags such as `v1.0.0`, or by manual
 
 The deployment job uses the protected `itch-production` GitHub environment, resolves the itch.io username from the API key without exposing the key, verifies that the configured game page exists, and uploads the directory containing `index.html` to the `web` Butler channel.
 
+After the first Butler upload, open the game's itch.io edit page once, keep the project kind set to **HTML**, and mark the `web` upload as **HTML5 / Playable in browser**. Later workflow runs update that channel automatically.
+
 All future artwork, audio, characters, and names should be original or used under an appropriate license.
