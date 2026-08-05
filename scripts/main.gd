@@ -4,8 +4,10 @@ const PLAYER_SCENE: PackedScene = preload("res://scenes/player.tscn")
 const COIN_SCENE: PackedScene = preload("res://scenes/coin.tscn")
 const ENEMY_SCENE: PackedScene = preload("res://scenes/patrol_enemy.tscn")
 const GOAL_SCENE: PackedScene = preload("res://scenes/goal.tscn")
+const FLAG_SCENE: PackedScene = preload("res://scenes/animated_flag.tscn")
 const SOIL_TEXTURE: Texture2D = preload("res://assets/environment/warm-soil-tile.png")
 const GRASS_TEXTURE: Texture2D = preload("res://assets/environment/grass-top-tile.png")
+const SPIKE_TEXTURE: Texture2D = preload("res://assets/hazards/mechanical-spike.png")
 
 const VIEWPORT_SIZE := Vector2(960.0, 540.0)
 const LEVEL_LEFT: float = 0.0
@@ -171,13 +173,12 @@ func _add_spikes(rect: Rect2) -> void:
 	var spike_width: float = rect.size.x / float(spike_count)
 	for index: int in range(spike_count):
 		var left: float = -rect.size.x * 0.5 + float(index) * spike_width
-		var spike := Polygon2D.new()
-		spike.polygon = PackedVector2Array([
-			Vector2(left, rect.size.y * 0.5),
-			Vector2(left + spike_width * 0.5, -rect.size.y * 0.5),
-			Vector2(left + spike_width, rect.size.y * 0.5),
-		])
-		spike.color = Color("#ef5361")
+		var spike := Sprite2D.new()
+		spike.name = "Spike%d" % index
+		spike.texture = SPIKE_TEXTURE
+		spike.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		spike.position = Vector2(left + spike_width * 0.5, 0.0)
+		spike.scale = Vector2(spike_width / 32.0, rect.size.y / 32.0)
 		area.add_child(spike)
 
 	area.body_entered.connect(_on_hazard_body_entered)
@@ -212,19 +213,9 @@ func _add_checkpoint(checkpoint_position: Vector2) -> void:
 	collision.shape = shape
 	area.add_child(collision)
 
-	var pole := Polygon2D.new()
-	pole.polygon = PackedVector2Array([
-		Vector2(-2.0, -112.0), Vector2(2.0, -112.0),
-		Vector2(2.0, 0.0), Vector2(-2.0, 0.0),
-	])
-	pole.color = Color("#d9ecf2")
-	area.add_child(pole)
-	var flag := Polygon2D.new()
+	var flag: Node2D = FLAG_SCENE.instantiate() as Node2D
 	flag.name = "Flag"
-	flag.polygon = PackedVector2Array([
-		Vector2(2.0, -108.0), Vector2(36.0, -94.0), Vector2(2.0, -78.0),
-	])
-	flag.color = Color("#50a8ff")
+	flag.set("start_raised", false)
 	area.add_child(flag)
 
 	area.body_entered.connect(_on_checkpoint_body_entered.bind(area))
@@ -301,8 +292,9 @@ func _on_checkpoint_body_entered(body: Node2D, area: Area2D) -> void:
 	_checkpoint_position = area.get_meta("respawn_position", START_POSITION) as Vector2
 	body.call("set_spawn_position", _checkpoint_position)
 	area.set_deferred("monitoring", false)
-	var flag: Polygon2D = area.get_node("Flag") as Polygon2D
-	flag.color = Color("#ffd84a")
+	var flag: Node = area.get_node_or_null("Flag")
+	if flag != null and flag.has_method("raise_flag"):
+		flag.call("raise_flag")
 	_score += 500
 	_update_hud()
 

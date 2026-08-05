@@ -31,11 +31,12 @@ The game is designed at 960×540, uses the GL Compatibility renderer, and can be
 - Responsive movement with separate ground and air acceleration.
 - Coyote time, jump buffering, and variable-height jumping.
 - Collectibles, scoring, hazards, pits, and player respawning.
-- Stompable patrol enemies and a mid-level checkpoint.
+- Stompable patrol enemies and a mid-level checkpoint with a raising flag.
 - Pause, restart, death counter, and level-complete flow.
 - Five-state robot animation: idle, run, jump, fall, and shutdown.
 - Original pixel-art background, terrain, animated pickups, and animated enemies.
-- Code-drawn hazards, checkpoint, and goal visuals layered over stable physics shapes.
+- Wind-blown checkpoint and goal flags with raising and lowering animations.
+- Mechanical spike artwork layered over stable gameplay hitboxes.
 - Automated Web builds and itch.io deployment through GitHub Actions.
 
 ## Controls
@@ -90,6 +91,8 @@ godot --headless --path . --quit-after 180
 ├── assets/branding/      # Project icon used by exported builds
 ├── assets/environment/   # Background plate and repeatable terrain textures
 ├── assets/enemies/       # Purple drone sprite sheet and animation resource
+├── assets/hazards/       # Mechanical spike artwork
+├── assets/objects/       # Animated flag sheet and animation resource
 ├── assets/pickups/       # Circuit coin sprite sheet and animation resource
 ├── assets/player/        # Robot sprite sheet and animation resource
 ├── marketing/itch/       # Storefront artwork; excluded from game exports
