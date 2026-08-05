@@ -11,6 +11,7 @@ const MAX_FALL_SPEED: float = 900.0
 
 @onready var floor_ray: RayCast2D = $FloorRayCast
 @onready var hitbox: Area2D = $Hitbox
+@onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var _spawn_x: float
 var _direction: float = -1.0
@@ -20,7 +21,8 @@ var _is_defeated: bool = false
 func _ready() -> void:
 	_spawn_x = position.x
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
-	queue_redraw()
+	_sprite.flip_h = _direction < 0.0
+	_sprite.play(&"walk")
 
 
 func _physics_process(delta: float) -> void:
@@ -41,7 +43,7 @@ func _physics_process(delta: float) -> void:
 
 func _turn_around() -> void:
 	_direction *= -1.0
-	queue_redraw()
+	_sprite.flip_h = _direction < 0.0
 
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
@@ -70,22 +72,9 @@ func _be_defeated() -> void:
 	hitbox.set_deferred("monitoring", false)
 	set_physics_process(false)
 	defeated.emit(points)
+	_sprite.play(&"defeat")
 
-	var tween: Tween = create_tween().set_parallel(true)
-	tween.tween_property(self, "scale", Vector2(1.25, 0.08), 0.18)
-	tween.tween_property(self, "modulate:a", 0.0, 0.26).set_delay(0.08)
-	tween.chain().tween_callback(queue_free)
-
-
-func _draw() -> void:
-	var shell_color := Color("#7c5ce7")
-	var shadow_color := Color("#3e2b8a")
-	var eye_offset: float = _direction * 4.0
-
-	draw_circle(Vector2(0.0, 1.0), 14.0, shadow_color)
-	draw_circle(Vector2(0.0, -1.0), 12.0, shell_color)
-	draw_circle(Vector2(eye_offset - 4.0, -4.0), 3.0, Color.WHITE)
-	draw_circle(Vector2(eye_offset + 4.0, -4.0), 3.0, Color.WHITE)
-	draw_circle(Vector2(eye_offset - 3.2, -3.5), 1.2, Color("#182238"))
-	draw_circle(Vector2(eye_offset + 4.8, -3.5), 1.2, Color("#182238"))
-	draw_line(Vector2(-7.0, 6.0), Vector2(7.0, 6.0), Color("#d7cfff"), 2.0)
+	var tween: Tween = create_tween()
+	tween.tween_interval(0.20)
+	tween.tween_property(self, "modulate:a", 0.0, 0.14)
+	tween.tween_callback(queue_free)

@@ -4,6 +4,8 @@ const PLAYER_SCENE: PackedScene = preload("res://scenes/player.tscn")
 const COIN_SCENE: PackedScene = preload("res://scenes/coin.tscn")
 const ENEMY_SCENE: PackedScene = preload("res://scenes/patrol_enemy.tscn")
 const GOAL_SCENE: PackedScene = preload("res://scenes/goal.tscn")
+const SOIL_TEXTURE: Texture2D = preload("res://assets/environment/warm-soil-tile.png")
+const GRASS_TEXTURE: Texture2D = preload("res://assets/environment/grass-top-tile.png")
 
 const VIEWPORT_SIZE := Vector2(960.0, 540.0)
 const LEVEL_LEFT: float = 0.0
@@ -38,7 +40,6 @@ func _ready() -> void:
 	_build_ui()
 	_spawn_player()
 	_update_hud()
-	queue_redraw()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -52,30 +53,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			_request_respawn()
 		get_viewport().set_input_as_handled()
-
-
-func _draw() -> void:
-	draw_rect(Rect2(-400.0, -400.0, 4300.0, 1300.0), Color("#77c8f5"))
-	draw_circle(Vector2(260.0, 105.0), 68.0, Color("#ffe58a"))
-
-	for cloud_position: Vector2 in [
-		Vector2(420.0, 120.0), Vector2(1080.0, 175.0), Vector2(1770.0, 105.0),
-		Vector2(2440.0, 155.0), Vector2(3110.0, 95.0)
-	]:
-		draw_circle(cloud_position, 32.0, Color("#e9f8ff"))
-		draw_circle(cloud_position + Vector2(38.0, 6.0), 24.0, Color("#e9f8ff"))
-		draw_circle(cloud_position + Vector2(-35.0, 9.0), 21.0, Color("#e9f8ff"))
-
-	for index: int in range(8):
-		var base_x: float = float(index) * 520.0 - 220.0
-		draw_colored_polygon(
-			PackedVector2Array([
-				Vector2(base_x, FLOOR_Y),
-				Vector2(base_x + 250.0, 205.0 + float(index % 2) * 35.0),
-				Vector2(base_x + 520.0, FLOOR_Y),
-			]),
-			Color("#59ad91")
-		)
 
 
 func _build_level() -> void:
@@ -95,7 +72,7 @@ func _build_level() -> void:
 	_add_platform(Vector2(2810.0, 382.0), Vector2(150.0, 28.0))
 	_add_platform(Vector2(3050.0, 306.0), Vector2(180.0, 28.0))
 
-	_add_platform(Vector2(-30.0, 250.0), Vector2(60.0, 700.0), Color("#315567"))
+	_add_platform(Vector2(-30.0, 250.0), Vector2(60.0, 700.0))
 
 
 func _build_gameplay_objects() -> void:
@@ -124,7 +101,7 @@ func _build_gameplay_objects() -> void:
 	_add_goal(Vector2(3290.0, FLOOR_Y))
 
 
-func _add_platform(center: Vector2, size: Vector2, color: Color = Color("#815a3c")) -> void:
+func _add_platform(center: Vector2, size: Vector2) -> void:
 	var body := StaticBody2D.new()
 	body.position = center
 	body.collision_layer = 1
@@ -136,27 +113,29 @@ func _add_platform(center: Vector2, size: Vector2, color: Color = Color("#815a3c
 	collision.shape = shape
 	body.add_child(collision)
 
-	var visual := Polygon2D.new()
-	visual.polygon = PackedVector2Array([
-		Vector2(-size.x * 0.5, -size.y * 0.5),
-		Vector2(size.x * 0.5, -size.y * 0.5),
-		Vector2(size.x * 0.5, size.y * 0.5),
-		Vector2(-size.x * 0.5, size.y * 0.5),
-	])
-	visual.color = color
-	body.add_child(visual)
+	var soil_visual := TextureRect.new()
+	soil_visual.position = -size * 0.5
+	soil_visual.size = size
+	soil_visual.texture = SOIL_TEXTURE
+	soil_visual.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	soil_visual.stretch_mode = TextureRect.STRETCH_TILE
+	soil_visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	soil_visual.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+	soil_visual.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	body.add_child(soil_visual)
 
 	if size.x > 80.0 and size.y < 100.0:
-		var top_strip := Polygon2D.new()
-		top_strip.polygon = PackedVector2Array([
-			Vector2(-size.x * 0.5, -size.y * 0.5),
-			Vector2(size.x * 0.5, -size.y * 0.5),
-			Vector2(size.x * 0.5, -size.y * 0.5 + 8.0),
-			Vector2(-size.x * 0.5, -size.y * 0.5 + 8.0),
-		])
-		top_strip.color = Color("#75d35b")
-		top_strip.z_index = 1
-		body.add_child(top_strip)
+		var grass_visual := TextureRect.new()
+		grass_visual.position = Vector2(-size.x * 0.5, -size.y * 0.5)
+		grass_visual.size = Vector2(size.x, minf(16.0, size.y))
+		grass_visual.texture = GRASS_TEXTURE
+		grass_visual.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		grass_visual.stretch_mode = TextureRect.STRETCH_TILE
+		grass_visual.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		grass_visual.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+		grass_visual.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		grass_visual.z_index = 1
+		body.add_child(grass_visual)
 
 	level.add_child(body)
 
@@ -396,4 +375,4 @@ func _build_ui() -> void:
 
 func _update_hud() -> void:
 	if _score_label != null:
-		_score_label.text = "SCORE  %06d    CRYSTALS  %02d    DEATHS  %02d" % [_score, _coins, _deaths]
+		_score_label.text = "SCORE  %06d    COINS  %02d    DEATHS  %02d" % [_score, _coins, _deaths]

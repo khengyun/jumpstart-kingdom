@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/patrol_enemy.gd" id="1_enemy"]
+[ext_resource type="SpriteFrames" path="res://assets/enemies/purple-drone-frames.tres" id="2_drone_frames"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_enemy"]
 radius = 13.0
@@ -18,6 +19,13 @@ script = ExtResource("1_enemy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_enemy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -12)
+sprite_frames = ExtResource("2_drone_frames")
+animation = &"walk"
+autoplay = "walk"
 
 [node name="FloorRayCast" type="RayCast2D" parent="."]
 position = Vector2(0, 8)

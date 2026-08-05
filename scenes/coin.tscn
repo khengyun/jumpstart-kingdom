@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/coin.gd" id="1_coin"]
+[ext_resource type="SpriteFrames" path="res://assets/pickups/circuit-coin-frames.tres" id="2_coin_frames"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_coin"]
 radius = 11.0
@@ -13,3 +14,9 @@ script = ExtResource("1_coin")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_coin")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = ExtResource("2_coin_frames")
+animation = &"spin"
+autoplay = "spin"
