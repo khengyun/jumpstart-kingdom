@@ -23,6 +23,8 @@ concurrency:
 
 env:
   GODOT_VERSION: "4.7.1"
+  BUTLER_VERSION: "15.30.0"
+  BUTLER_LINUX_AMD64_SHA256: f2cae7d24eba0605048f71d0cc056f65c3b7ff9f73724f504c731cf3645bef08
   EXPORT_PRESET: Web
   BUILD_DIR: build/web
   ARTIFACT_NAME: jumpstart-kingdom-web
@@ -152,8 +154,11 @@ jobs:
       - name: Install Butler
         run: |
           curl --fail --silent --show-error --location \
-            https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default \
+            --retry 5 --retry-all-errors --retry-delay 3 \
+            "https://github.com/itchio/butler/releases/download/v${BUTLER_VERSION}/butler-linux-amd64.zip" \
             --output "$RUNNER_TEMP/butler.zip"
+          echo "$BUTLER_LINUX_AMD64_SHA256  $RUNNER_TEMP/butler.zip" | \
+            sha256sum --check --strict
           unzip -q "$RUNNER_TEMP/butler.zip" -d "$RUNNER_TEMP/butler"
           chmod +x "$RUNNER_TEMP/butler/butler"
           echo "$RUNNER_TEMP/butler" >> "$GITHUB_PATH"
