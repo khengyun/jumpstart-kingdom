@@ -88,7 +88,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.84, 0.92, 0.96, 1)
 theme_override_font_sizes/font_size = 16
-text = "A cheerful robot platformer set in a bright circuit kingdom. Run, jump, collect coins, and reach the light gate.\n\nCONTROLS\nMove   A / D or Left / Right Arrow\nJump   Space, W, or Up Arrow\nPause  Escape\n\nCreated by Ken with Godot Engine.\nSound effects generated with elevenlabs.io."
+text = "A cheerful robot platformer set in a bright circuit kingdom. Run, jump, collect coins, and reach the light gate.\n\nCONTROLS\nMove   A / D or Left / Right Arrow\nJump   Space, W, or Up Arrow\nPause  Escape\n\nCreated by Ken with Godot Engine.\nSound effects adapted from Pixabay contributors."
 autowrap_mode = 2
 
 [node name="BackButton" type="Button" parent="Panel/VBox"]

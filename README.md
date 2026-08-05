@@ -151,8 +151,8 @@ Production deployment requires the repository secret `BUTLER_API_KEY`, the repos
 
 Created by [Ken](https://khengyun.itch.io/) with [Godot Engine](https://godotengine.org/). Gameplay code and runtime artwork are original to this project.
 
-Sound effects were generated with [ElevenLabs](https://elevenlabs.io/). The current Free-plan takes are used only in the non-commercial build and are not distributed as a standalone sound library.
+Sound effects are game-specific adaptations of recordings by [Pixabay](https://pixabay.com/sound-effects/) contributors under the Pixabay Content License. Exact sources, contributor credits, and the reproducible processing script are documented in [`assets/audio/SOURCES.md`](assets/audio/SOURCES.md).
 
-The generated WAV files are intentionally kept out of Git. Local copies in `assets/audio/sfx/` load automatically; a clean checkout and GitHub Actions build remain playable with silent fallbacks until redistributable SFX are provisioned for the release pipeline.
+The processed WAV files are tracked with the project, so clean GitHub Actions and itch.io builds include the same sound set as local builds.
 
 This independent project is not affiliated with Nintendo and contains no Nintendo characters, names, or assets.
