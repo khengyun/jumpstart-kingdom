@@ -66,10 +66,9 @@ The GitHub Actions workflow in `.github/workflows/godot-export.yml` validates th
 Publishing to itch.io is enabled for version tags such as `v1.0.0`, or by manually running the workflow with the **deploy** input enabled. The repository must define:
 
 - an Actions secret named `BUTLER_API_KEY`;
-- an Actions variable named `ITCH_USER` containing the itch.io username;
 - an Actions variable named `ITCH_GAME` containing the itch.io project slug;
 - an existing itch.io HTML game page matching those values.
 
-The deployment job uses the protected `itch-production` GitHub environment and uploads the directory containing `index.html` to the `web` Butler channel.
+The deployment job uses the protected `itch-production` GitHub environment, resolves the itch.io username from the API key without exposing the key, verifies that the configured game page exists, and uploads the directory containing `index.html` to the `web` Butler channel.
 
 All future artwork, audio, characters, and names should be original or used under an appropriate license.

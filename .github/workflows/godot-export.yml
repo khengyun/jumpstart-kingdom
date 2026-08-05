@@ -85,7 +85,6 @@ jobs:
     environment: itch-production
     env:
       BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
-      ITCH_USER: ${{ vars.ITCH_USER }}
       ITCH_GAME: ${{ vars.ITCH_GAME }}
       BUILD_VERSION: ${{ github.ref_type == 'tag' && github.ref_name || github.sha }}
 
@@ -96,14 +95,36 @@ jobs:
             echo "Missing repository secret: BUTLER_API_KEY" >&2
             exit 1
           }
-          test -n "$ITCH_USER" || {
-            echo "Missing repository variable: ITCH_USER" >&2
-            exit 1
-          }
           test -n "$ITCH_GAME" || {
             echo "Missing repository variable: ITCH_GAME" >&2
             exit 1
           }
+
+      - name: Resolve itch.io account and game page
+        run: |
+          curl --fail --silent --show-error \
+            --header "Authorization: Bearer $BUTLER_API_KEY" \
+            https://api.itch.io/profile \
+            --output "$RUNNER_TEMP/itch-profile.json"
+          curl --fail --silent --show-error \
+            --header "Authorization: Bearer $BUTLER_API_KEY" \
+            https://api.itch.io/profile/games \
+            --output "$RUNNER_TEMP/itch-games.json"
+
+          ITCH_USER="$(jq --exit-status --raw-output '.user.username' \
+            "$RUNNER_TEMP/itch-profile.json")"
+          TARGET_URL="$(jq --raw-output --arg slug "$ITCH_GAME" \
+            '.games[]? | select((.url // "") | endswith("/" + $slug)) | .url' \
+            "$RUNNER_TEMP/itch-games.json" | head -n 1)"
+
+          if [ -z "$TARGET_URL" ]; then
+            echo "No itch.io game page found for slug: $ITCH_GAME" >&2
+            echo "Create that HTML game page in the authenticated itch.io account, then rerun this workflow." >&2
+            exit 1
+          fi
+
+          echo "ITCH_USER=$ITCH_USER" >> "$GITHUB_ENV"
+          echo "Resolved itch.io target: $TARGET_URL"
 
       - name: Download Web artifact
         uses: actions/download-artifact@v8
