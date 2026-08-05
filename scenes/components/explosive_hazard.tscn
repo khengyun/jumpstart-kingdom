@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/explosive_hazard.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://assets/hazards/proximity-mine-frames.tres" id="2_frames"]
+[ext_resource type="SpriteFrames" path="res://assets/hazards/explosion-shockwave-frames.tres" id="3_shockwave_frames"]
+
+[sub_resource type="CircleShape2D" id="Circle_trigger"]
+resource_local_to_scene = true
+radius = 22.0
+
+[sub_resource type="CircleShape2D" id="Circle_blast"]
+resource_local_to_scene = true
+radius = 96.0
+
+[node name="ExplosiveHazard" type="Node2D"]
+z_index = 5
+script = ExtResource("1_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -28)
+sprite_frames = ExtResource("2_frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Shockwave" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 20
+texture_filter = 1
+position = Vector2(0, -24)
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("3_shockwave_frames")
+animation = &"explode"
+
+[node name="TriggerArea" type="Area2D" parent="."]
+position = Vector2(0, -24)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerArea"]
+shape = SubResource("Circle_trigger")
+
+[node name="BlastArea" type="Area2D" parent="."]
+position = Vector2(0, -24)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlastArea"]
+shape = SubResource("Circle_blast")
+
+[node name="FuseTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[node name="BlastTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[node name="CleanupTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true

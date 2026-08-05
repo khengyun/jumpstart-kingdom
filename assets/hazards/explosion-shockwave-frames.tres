@@ -1,0 +1,123 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://buwblh3kix0mo"]
+
+[ext_resource type="Texture2D" uid="uid://b0r6gsfqdeptl" path="res://assets/hazards/explosion-shockwave-sprites.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_00"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_01"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_02"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_03"]
+atlas = ExtResource("1_sheet")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_04"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_05"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_06"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_07"]
+atlas = ExtResource("1_sheet")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_08"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_09"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_12"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_13"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_14"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_explode_15"]
+atlas = ExtResource("1_sheet")
+region = Rect2(192, 192, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_00")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_01")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_02")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_03")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_04")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_05")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_06")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_07")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_08")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_09")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_12")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_13")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_14")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_explode_15")
+}],
+"loop": 0,
+"name": &"explode",
+"speed": 28.0
+}]

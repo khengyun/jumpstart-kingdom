@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://hcwy1f20iy2m"]
+
+[ext_resource type="Texture2D" uid="uid://qn451ux55khj" path="res://assets/enemies/sentry-bolt-sprites.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="Atlas_fly_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_fly_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_fly_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_fly_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64, 64, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_fly_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_fly_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_fly_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_fly_3")
+}],
+"loop": 1,
+"name": &"fly",
+"speed": 14.0
+}]

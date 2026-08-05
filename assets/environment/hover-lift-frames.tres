@@ -1,0 +1,138 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dccc6y62wsxyb"]
+
+[ext_resource type="Texture2D" uid="uid://bc0rjqrx2puyb" path="res://assets/environment/hover-lift-sprites.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="Atlas_left_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_left_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_left_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_left_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_right_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_right_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_right_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_right_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_turn_left_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_turn_left_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_turn_left_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_turn_left_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(384, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_turn_right_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_turn_right_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_turn_right_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_turn_right_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(384, 384, 128, 128)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_left_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_left_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_left_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_left_3")
+}],
+"loop": 1,
+"name": &"left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_right_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_right_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_right_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_right_3")
+}],
+"loop": 1,
+"name": &"right",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_turn_left_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_turn_left_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_turn_left_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_turn_left_3")
+}],
+"loop": 0,
+"name": &"turn_left",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_turn_right_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_turn_right_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_turn_right_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_turn_right_3")
+}],
+"loop": 0,
+"name": &"turn_right",
+"speed": 12.0
+}]

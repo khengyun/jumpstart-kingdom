@@ -22,7 +22,7 @@
 
 ## About
 
-Jumpstart Kingdom is a compact 2D platformer built with Godot 4.7. Run across grassy platforms, collect golden pickups, avoid spikes, stomp patrol enemies, activate the checkpoint, and reach the goal.
+Jumpstart Kingdom is a six-stage 2D platformer built with Godot 4.7. Run across grassy platforms, collect golden pickups, survive moving platforms and explosive traps, stomp robot enemies, activate checkpoints, and defeat the Radial Core Guardian.
 
 The game is designed at 960×540, uses the GL Compatibility renderer, and can be played directly in a modern desktop browser.
 
@@ -31,7 +31,10 @@ The game is designed at 960×540, uses the GL Compatibility renderer, and can be
 - Responsive movement with separate ground and air acceleration.
 - Coyote time, jump buffering, variable-height jumping, and a second aerial jump.
 - Collectibles, scoring, hazards, pits, checkpoints, and a three-life run system.
-- Stompable ground patrols and reusable flying scouts with editable flight paths.
+- Stompable ground patrols, reusable flying scouts, and two-second sentry shooters.
+- Stable horizontal rocket lifts and proximity mines with visible fiery shockwaves.
+- A 9,200px final gauntlet with five mandatory lift crossings, four checkpoints,
+  and a hovering three-hit radial-projectile boss.
 - Pause, restart, automatic animated transitions between stages, and final run menus.
 - Five-state robot animation: idle, run, jump, fall, and shutdown.
 - Original pixel-art background, terrain, animated pickups, and animated enemies.
@@ -96,8 +99,8 @@ godot --headless --path . --quit-after 180
 ├── assets/branding/      # Project icon used by exported builds
 ├── assets/audio/         # Processed SFX, source records, and reproducible build script
 ├── assets/environment/   # Background plate and repeatable terrain textures
-├── assets/enemies/       # Ground drone and flying scout animation resources
-├── assets/hazards/       # Mechanical spike artwork
+├── assets/enemies/       # Patrol, flying, sentry, projectile, and boss artwork
+├── assets/hazards/       # Spikes, proximity mine, and shockwave artwork
 ├── assets/objects/       # Animated flag sheet and animation resource
 ├── assets/pickups/       # Circuit coin sprite sheet and animation resource
 ├── assets/player/        # Robot sprite sheet and animation resource
@@ -116,13 +119,18 @@ godot --headless --path . --quit-after 180
 
 The collision layers are named `World`, `Player`, `Enemy`, and `Pickup`. Storefront artwork lives under `marketing/` and is kept out of Godot imports and release bundles by `marketing/.gdignore`.
 
+The exact built-in image-generation prompts and post-processing approach for
+the mine, sentry, projectile, boss, shockwave, and hover lift are recorded in
+[`docs/IMAGEGEN_PROMPTS.md`](docs/IMAGEGEN_PROMPTS.md).
+
 The included VS Code tasks open or run the project through Flatpak. Debug launch configurations use the recommended `geequlim.godot-tools` extension.
 
 ## Edit or Add Levels
 
-Open a scene under `scenes/levels/` to edit a map visually. Platforms and spike
-strips can be moved and resized directly; coins, enemies, the spawn marker,
-checkpoints, and goals are normal scene instances.
+Open a scene under `scenes/levels/` to edit a map visually. Fixed platforms and
+spike strips can be moved and resized directly. Moving platforms, mines, coins,
+enemies, checkpoints, the goal, and the spawn marker are reusable scene
+instances that can be placed in the 2D viewport.
 
 Levels are discovered automatically by `LevelCatalog` through
 `ResourceLoader.list_directory()` and `ResourceLoader.load()`, so discovery also
@@ -164,20 +172,26 @@ To add a level:
    `Background Texture` in the Inspector.
 3. Keep the required branches and move or instance terrain and gameplay
    components beneath the matching branch.
-4. Place `scenes/flying_enemy.tscn` beneath `Enemies` to add a flying scout.
-   Its speed, patrol distance, initial direction, hover amplitude, frequency,
-   phase, stomp threshold, bounce strength, and score value are editable in
-   the Inspector.
-5. Save the scene. It will be discovered automatically on the next run and in
+4. Add reusable pieces under the matching branch:
+   - `scenes/components/moving_platform.tscn` under `Terrain` for a horizontal
+     platform with editable travel distance, speed, and initial direction.
+   - `scenes/components/explosive_hazard.tscn` under `GameplayAreas` for a
+     one-shot proximity mine with editable trigger and blast radii.
+   - `scenes/flying_enemy.tscn` or `scenes/shooter_enemy.tscn` under `Enemies`
+     for an aerial patrol or two-second projectile sentry.
+5. To make a boss goal, place `scenes/radial_boss.tscn` under `Enemies` and set
+   the goal's `Required Group` to `level_boss`. The goal unlocks as soon as no
+   boss remains in that group.
+6. Save the scene. It will be discovered automatically on the next run and in
    the Web export.
 
 Reaching a goal automatically loads the next discovered level through the
 stage transition. The completion menu appears only after the final available
 level, so no menu interrupts the run between maps.
 
-`GameLevel` searches the gameplay branches recursively, so reusable patrol and
-flying enemy instances beneath `Enemies` automatically contribute their
-`defeated` signals to scoring. See the step-by-step
+`GameLevel` searches the gameplay branches recursively, so reusable patrol,
+flying, shooter, and boss instances beneath `Enemies` automatically contribute
+their `defeated` signals to scoring. See the step-by-step
 [level editing guide](docs/LEVEL_EDITING.md) for viewport editing details.
 
 ## Lives and Game Over

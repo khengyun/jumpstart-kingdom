@@ -1,0 +1,357 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_level"]
+[ext_resource type="PackedScene" path="res://scenes/components/platform_block.tscn" id="2_platform"]
+[ext_resource type="PackedScene" path="res://scenes/components/moving_platform.tscn" id="3_moving_platform"]
+[ext_resource type="PackedScene" path="res://scenes/components/explosive_hazard.tscn" id="4_explosive_hazard"]
+[ext_resource type="PackedScene" path="res://scenes/components/kill_zone.tscn" id="5_kill_zone"]
+[ext_resource type="PackedScene" path="res://scenes/coin.tscn" id="6_coin"]
+[ext_resource type="PackedScene" path="res://scenes/patrol_enemy.tscn" id="7_patrol_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/flying_enemy.tscn" id="8_flying_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/components/checkpoint.tscn" id="9_checkpoint"]
+[ext_resource type="PackedScene" path="res://scenes/goal.tscn" id="10_goal"]
+[ext_resource type="Texture2D" path="res://assets/environment/kingdom-background.png" id="11_background"]
+
+[node name="Level03" type="Node2D"]
+script = ExtResource("1_level")
+level_title = "Blastline Foundry"
+level_bounds = Rect2(0, 0, 4400, 540)
+background_texture = ExtResource("11_background")
+
+[node name="EditorGuides" type="Node2D" parent="."]
+
+[node name="LevelBounds" type="ReferenceRect" parent="EditorGuides"]
+offset_right = 4400.0
+offset_bottom = 540.0
+mouse_filter = 2
+border_color = Color(0.2, 0.85, 1, 0.85)
+border_width = 2.0
+editor_only = true
+
+[node name="Terrain" type="Node2D" parent="."]
+z_index = 1
+
+[node name="Ground01" parent="Terrain" instance=ExtResource("2_platform")]
+offset_top = 460.0
+offset_right = 620.0
+offset_bottom = 540.0
+
+[node name="Ground02" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 900.0
+offset_top = 460.0
+offset_right = 1510.0
+offset_bottom = 540.0
+
+[node name="Ground03" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 1770.0
+offset_top = 460.0
+offset_right = 2310.0
+offset_bottom = 540.0
+
+[node name="Ground04" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 2470.0
+offset_top = 460.0
+offset_right = 2920.0
+offset_bottom = 540.0
+
+[node name="Ground05" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 3240.0
+offset_top = 460.0
+offset_right = 3650.0
+offset_bottom = 540.0
+
+[node name="Ground06" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 3860.0
+offset_top = 460.0
+offset_right = 4400.0
+offset_bottom = 540.0
+
+[node name="Ledge01" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 280.0
+offset_top = 360.0
+offset_right = 460.0
+offset_bottom = 388.0
+
+[node name="Ledge02" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 1060.0
+offset_top = 330.0
+offset_right = 1250.0
+offset_bottom = 358.0
+
+[node name="Ledge03" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 1320.0
+offset_top = 245.0
+offset_right = 1490.0
+offset_bottom = 273.0
+
+[node name="Ledge04" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 1810.0
+offset_top = 350.0
+offset_right = 1970.0
+offset_bottom = 378.0
+
+[node name="Ledge05" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 2070.0
+offset_top = 265.0
+offset_right = 2260.0
+offset_bottom = 293.0
+
+[node name="Ledge06" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 2490.0
+offset_top = 350.0
+offset_right = 2640.0
+offset_bottom = 378.0
+
+[node name="Ledge07" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 2650.0
+offset_top = 245.0
+offset_right = 2900.0
+offset_bottom = 273.0
+
+[node name="Ledge08" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 3290.0
+offset_top = 320.0
+offset_right = 3450.0
+offset_bottom = 348.0
+
+[node name="Ledge09" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 3490.0
+offset_top = 235.0
+offset_right = 3650.0
+offset_bottom = 263.0
+
+[node name="Ledge10" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 3900.0
+offset_top = 320.0
+offset_right = 4050.0
+offset_bottom = 348.0
+
+[node name="Ledge11" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = 4110.0
+offset_top = 235.0
+offset_right = 4280.0
+offset_bottom = 263.0
+
+[node name="MovingPlatform01" parent="Terrain" instance=ExtResource("3_moving_platform")]
+position = Vector2(760, 394)
+travel_distance = 170.0
+speed = 100.0
+
+[node name="MovingPlatform02" parent="Terrain" instance=ExtResource("3_moving_platform")]
+position = Vector2(1640, 366)
+travel_distance = 140.0
+speed = 105.0
+initial_direction = -1
+
+[node name="MovingPlatform03" parent="Terrain" instance=ExtResource("3_moving_platform")]
+position = Vector2(2990, 398)
+travel_distance = 70.0
+speed = 90.0
+
+[node name="MovingPlatform04" parent="Terrain" instance=ExtResource("3_moving_platform")]
+position = Vector2(3170, 322)
+travel_distance = 70.0
+speed = 90.0
+
+[node name="MovingPlatform05" parent="Terrain" instance=ExtResource("3_moving_platform")]
+position = Vector2(3770, 362)
+travel_distance = 100.0
+speed = 110.0
+initial_direction = -1
+
+[node name="LeftWall" parent="Terrain" instance=ExtResource("2_platform")]
+offset_left = -60.0
+offset_top = -100.0
+offset_right = 0.0
+offset_bottom = 600.0
+grass_top = false
+
+[node name="Pickups" type="Node2D" parent="."]
+z_index = 4
+
+[node name="Coin01" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(250, 410)
+
+[node name="Coin02" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(370, 320)
+
+[node name="Coin03" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(620, 340)
+
+[node name="Coin04" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(690, 315)
+
+[node name="Coin05" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(760, 300)
+
+[node name="Coin06" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(830, 315)
+
+[node name="Coin07" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(900, 340)
+
+[node name="Coin08" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(1100, 285)
+
+[node name="Coin09" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(1200, 285)
+
+[node name="Coin10" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(1380, 200)
+
+[node name="Coin11" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(1530, 315)
+
+[node name="Coin12" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(1640, 285)
+
+[node name="Coin13" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(1750, 315)
+
+[node name="Coin14" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(1860, 305)
+
+[node name="Coin15" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(2150, 220)
+
+[node name="Coin16" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(2530, 305)
+
+[node name="Coin17" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(2720, 200)
+
+[node name="Coin18" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(2840, 200)
+
+[node name="Coin19" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(2990, 335)
+
+[node name="Coin20" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(3170, 260)
+
+[node name="Coin21" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(3335, 275)
+
+[node name="Coin22" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(3550, 190)
+
+[node name="Coin23" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(3770, 270)
+
+[node name="Coin24" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(3950, 275)
+
+[node name="Coin25" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(4170, 190)
+
+[node name="Coin26" parent="Pickups" instance=ExtResource("6_coin")]
+position = Vector2(4290, 410)
+
+[node name="Enemies" type="Node2D" parent="."]
+z_index = 5
+
+[node name="PatrolEnemy01" parent="Enemies" instance=ExtResource("7_patrol_enemy")]
+position = Vector2(380, 446)
+speed = 64.0
+patrol_distance = 95.0
+
+[node name="PatrolEnemy02" parent="Enemies" instance=ExtResource("7_patrol_enemy")]
+position = Vector2(990, 446)
+speed = 68.0
+patrol_distance = 65.0
+
+[node name="PatrolEnemy03" parent="Enemies" instance=ExtResource("7_patrol_enemy")]
+position = Vector2(1870, 446)
+speed = 72.0
+patrol_distance = 65.0
+
+[node name="PatrolEnemy04" parent="Enemies" instance=ExtResource("7_patrol_enemy")]
+position = Vector2(2530, 446)
+speed = 76.0
+patrol_distance = 40.0
+
+[node name="FlyingEnemy01" parent="Enemies" instance=ExtResource("8_flying_enemy")]
+position = Vector2(1420, 185)
+speed = 78.0
+patrol_distance = 85.0
+hover_amplitude = 13.0
+hover_phase_degrees = 60.0
+
+[node name="FlyingEnemy02" parent="Enemies" instance=ExtResource("8_flying_enemy")]
+position = Vector2(2780, 185)
+speed = 84.0
+patrol_distance = 90.0
+hover_amplitude = 14.0
+hover_frequency = 1.35
+hover_phase_degrees = 180.0
+
+[node name="FlyingEnemy03" parent="Enemies" instance=ExtResource("8_flying_enemy")]
+position = Vector2(3770, 215)
+speed = 90.0
+patrol_distance = 85.0
+hover_amplitude = 16.0
+hover_frequency = 1.45
+hover_phase_degrees = 300.0
+
+[node name="GameplayAreas" type="Node2D" parent="."]
+z_index = 3
+
+[node name="ExplosiveHazard01" parent="GameplayAreas" instance=ExtResource("4_explosive_hazard")]
+position = Vector2(1180, 460)
+trigger_radius = 22.0
+blast_radius = 96.0
+fuse_seconds = 0.75
+blast_active_seconds = 0.18
+
+[node name="ExplosiveHazard02" parent="GameplayAreas" instance=ExtResource("4_explosive_hazard")]
+position = Vector2(2040, 460)
+trigger_radius = 22.0
+blast_radius = 96.0
+fuse_seconds = 0.7
+blast_active_seconds = 0.18
+
+[node name="ExplosiveHazard03" parent="GameplayAreas" instance=ExtResource("4_explosive_hazard")]
+position = Vector2(2670, 460)
+trigger_radius = 22.0
+blast_radius = 96.0
+fuse_seconds = 0.65
+blast_active_seconds = 0.18
+
+[node name="ExplosiveHazard04" parent="GameplayAreas" instance=ExtResource("4_explosive_hazard")]
+position = Vector2(2830, 460)
+trigger_radius = 22.0
+blast_radius = 96.0
+fuse_seconds = 0.65
+blast_active_seconds = 0.18
+
+[node name="ExplosiveHazard05" parent="GameplayAreas" instance=ExtResource("4_explosive_hazard")]
+position = Vector2(3440, 460)
+trigger_radius = 22.0
+blast_radius = 96.0
+fuse_seconds = 0.6
+blast_active_seconds = 0.18
+
+[node name="ExplosiveHazard06" parent="GameplayAreas" instance=ExtResource("4_explosive_hazard")]
+position = Vector2(4060, 460)
+trigger_radius = 22.0
+blast_radius = 96.0
+fuse_seconds = 0.58
+blast_active_seconds = 0.18
+
+[node name="DeathZone" parent="GameplayAreas" instance=ExtResource("5_kill_zone")]
+offset_left = -400.0
+offset_top = 600.0
+offset_right = 4800.0
+offset_bottom = 780.0
+
+[node name="Checkpoint01" parent="GameplayAreas" instance=ExtResource("9_checkpoint")]
+position = Vector2(2200, 460)
+
+[node name="Goal" parent="GameplayAreas" instance=ExtResource("10_goal")]
+position = Vector2(4320, 460)
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="PlayerSpawn" type="Marker2D" parent="Markers"]
+position = Vector2(120, 410)
+gizmo_extents = 24.0

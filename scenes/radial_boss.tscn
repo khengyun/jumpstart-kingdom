@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/radial_boss.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://assets/enemies/radial-core-boss-frames.tres" id="2_frames"]
+
+[sub_resource type="CircleShape2D" id="Circle_body"]
+radius = 44.0
+
+[sub_resource type="RectangleShape2D" id="Rectangle_hitbox"]
+size = Vector2(112, 94)
+
+[sub_resource type="CircleShape2D" id="Circle_activation"]
+resource_local_to_scene = true
+radius = 520.0
+
+[node name="RadialBoss" type="CharacterBody2D" groups=["level_boss"]]
+z_index = 7
+motion_mode = 1
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -62)
+shape = SubResource("Circle_body")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -64)
+sprite_frames = ExtResource("2_frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0, -62)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("Rectangle_hitbox")
+
+[node name="ActivationArea" type="Area2D" parent="."]
+position = Vector2(0, -62)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActivationArea"]
+shape = SubResource("Circle_activation")
+
+[node name="VolleyTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[node name="TelegraphTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[node name="HurtTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true

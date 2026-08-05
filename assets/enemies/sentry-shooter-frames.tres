@@ -1,0 +1,138 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://r7tdkpfumqsg"]
+
+[ext_resource type="Texture2D" uid="uid://dth2jietmyelr" path="res://assets/enemies/sentry-shooter-sprites.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="Atlas_charge_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_charge_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_charge_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_charge_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_defeat_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_defeat_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_defeat_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_defeat_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_fire_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_fire_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_fire_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_fire_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_idle_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_idle_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_idle_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Atlas_idle_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(192, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_charge_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_charge_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_charge_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_charge_3")
+}],
+"loop": 1,
+"name": &"charge",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_defeat_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_defeat_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_defeat_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_defeat_3")
+}],
+"loop": 0,
+"name": &"defeat",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_fire_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_fire_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_fire_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_fire_3")
+}],
+"loop": 0,
+"name": &"fire",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_idle_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_idle_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_idle_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_idle_3")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 7.0
+}]
