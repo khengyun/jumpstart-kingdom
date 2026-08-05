@@ -160,8 +160,8 @@ jobs:
           echo "$BUTLER_LINUX_AMD64_SHA256  $RUNNER_TEMP/butler.zip" | \
             sha256sum --check --strict
           unzip -q "$RUNNER_TEMP/butler.zip" -d "$RUNNER_TEMP/butler"
-          chmod +x "$RUNNER_TEMP/butler/butler"
-          echo "$RUNNER_TEMP/butler" >> "$GITHUB_PATH"
+          chmod +x "$RUNNER_TEMP/butler/linux-amd64/butler"
+          echo "$RUNNER_TEMP/butler/linux-amd64" >> "$GITHUB_PATH"
 
       - name: Push Web build to itch.io
         env:
